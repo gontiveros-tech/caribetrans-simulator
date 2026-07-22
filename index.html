@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaribeTrans · Sistema Integrado de Gestión</title>
+  <meta name="description" content="Demo comercial del sistema integrado de gestión de transporte turístico CaribeTrans — Punta Cana, República Dominicana." />
+
+  <!-- Tipografía -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ====================================================== LOGIN ====== -->
+  <div id="login">
+    <div class="login-particles"></div>
+
+    <!-- Panel izquierdo: card de acceso -->
+    <div class="login-left">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="brand-logo"><i class="fa-solid fa-bus"></i></div>
+          <div>
+            <div class="brand-name">CaribeTrans</div>
+            <div class="brand-sub">Punta Cana · República Dominicana</div>
+          </div>
+        </div>
+
+        <h2>Bienvenido de nuevo</h2>
+        <p class="welcome-sub">Ingrese sus credenciales para acceder al sistema</p>
+
+        <form id="login-form">
+          <div class="field">
+            <label for="login-email">Correo electrónico</label>
+            <div class="field-input">
+              <i class="fa-solid fa-envelope"></i>
+              <input id="login-email" type="email" value="admin@caribetrans.com.do" autocomplete="username" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="login-pw">Contraseña</label>
+            <div class="field-input">
+              <i class="fa-solid fa-lock"></i>
+              <input id="login-pw" type="password" value="demodemo" autocomplete="current-password" />
+              <button type="button" id="pw-toggle" class="field-toggle" aria-label="Mostrar contraseña"><i class="fa-solid fa-eye"></i></button>
+            </div>
+          </div>
+
+          <div class="login-row">
+            <label class="login-check"><input type="checkbox" checked /> Recordarme</label>
+            <a href="#" class="login-link" onclick="return false;">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión <i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+
+        <div class="login-foot">
+          <span class="ver">CaribeTrans v3.1.0</span><br />
+          © 2026 CaribeTrans · Todos los derechos reservados
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho: hero -->
+    <div class="login-right">
+      <span class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Sistema Integrado de Gestión</span>
+      <h1 class="hero-title">Transporte Turístico<br /><span class="gold">de Clase Mundial</span></h1>
+      <p class="hero-desc">
+        Gestione su flota, conductores, touroperadores y operación diaria desde una sola
+        plataforma. Transfers de aeropuerto, excursiones y servicios privados, coordinados
+        en tiempo real con inteligencia operativa.
+      </p>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">48</div><div class="lbl">Vehículos activos</div></div>
+        <div class="hero-stat"><div class="num">127</div><div class="lbl">Empleados</div></div>
+        <div class="hero-stat"><div class="num">1,240</div><div class="lbl">Servicios/mes</div></div>
+      </div>
+
+      <div class="hero-features">
+        <div class="hero-feature"><i class="fa-solid fa-circle-check"></i> Coordinación automática de transfers y contingencias</div>
+        <div class="hero-feature"><i class="fa-solid fa-circle-check"></i> Seguimiento GPS de flota en tiempo real</div>
+        <div class="hero-feature"><i class="fa-solid fa-circle-check"></i> Gestión de comisiones por touroperador</div>
+        <div class="hero-feature"><i class="fa-solid fa-circle-check"></i> App móvil para conductores</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== APP ====== -->
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo"><i class="fa-solid fa-bus"></i></div>
+        <div class="brand-text">
+          <div class="brand-name">CaribeTrans</div>
+          <div class="brand-sub">v3.1.0 · Punta Cana</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav"><!-- render dinámico --></nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="breadcrumb">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span class="crumb-current">Dashboard</span>
+        </div>
+        <div class="topbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Buscar servicios, vehículos, conductores…" />
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-icon" aria-label="Notificaciones"><i class="fa-solid fa-bell"></i><span class="notif-dot"></span></button>
+          <button class="topbar-icon" aria-label="Configuración"><i class="fa-solid fa-gear"></i></button>
+          <div class="topbar-date">
+            <div class="clock">00:00:00</div>
+            <div class="date">22 de julio de 2026</div>
+          </div>
+          <div class="topbar-user">
+            <div class="user-avatar">CM</div>
+            <div>
+              <div class="u-name">Carlos Mejía</div>
+              <div class="u-role">Administrador</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="content">
+        <!-- Dashboard -->
+        <section id="section-dashboard" class="section active"></section>
+        <!-- Centro de Operaciones -->
+        <section id="section-operaciones" class="section"></section>
+        <!-- Placeholder de módulos no implementados -->
+        <section id="section-placeholder" class="section"></section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================================================== JS ======= -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/operations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
