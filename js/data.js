@@ -808,7 +808,9 @@
   const RUTAS_ACTIVAS = ['MV-15', 'BUS-09', 'MV-14', 'SUV-05'];
 
   /* -------------------------------------------- Vista conductor (tab 4) */
-  const CONDUCTORES_DEMO = ['COND-001', 'COND-008', 'COND-017', 'COND-045'];
+  // Mezcla para el wow: excursión grande en curso, transfers con próximos
+  // servicios, y el conductor de reemplazo ligado a la alerta ALT-03.
+  const CONDUCTORES_DEMO = ['COND-001', 'COND-004', 'COND-008', 'COND-045'];
 
   /* --------------------------------------------------- Sidebar (sec. 6) */
   const NAV = [
