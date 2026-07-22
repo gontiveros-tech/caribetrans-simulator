@@ -1,0 +1,23 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Dependencias (no aplican: proyecto vanilla, pero por si acaso)
+node_modules/
+package-lock.json
+
+# Temporales / builds
+dist/
+build/
+*.log
+*.tmp
+
+# Referencia visual pesada
+caribetrans-mockup.zip
