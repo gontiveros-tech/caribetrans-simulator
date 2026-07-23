@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TransportOS - Simulador de Escenarios Estratégicos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#2f2100",
+                        "surface-container-low": "#f4f3f6",
+                        "on-surface-variant": "#43474e",
+                        "on-error": "#ffffff",
+                        "primary": "#002444",
+                        "inverse-primary": "#abc9f2",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-high": "#e9e8eb",
+                        "on-background": "#1a1c1e",
+                        "tertiary-container": "#4a3500",
+                        "on-surface": "#1a1c1e",
+                        "surface-container": "#eeedf1",
+                        "surface-variant": "#e3e2e5",
+                        "on-secondary-fixed": "#001f29",
+                        "inverse-on-surface": "#f1f0f3",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#87a4cc",
+                        "surface-container-highest": "#e3e2e5",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#00647d",
+                        "on-primary-fixed-variant": "#2a486b",
+                        "inverse-surface": "#2f3033",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary": "#006781",
+                        "primary-fixed-dim": "#abc9f2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdfa0",
+                        "primary-fixed": "#d2e4ff",
+                        "primary-container": "#1a3a5c",
+                        "on-secondary-fixed-variant": "#004d62",
+                        "secondary-fixed-dim": "#81d1f0",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#f6be39",
+                        "on-tertiary-container": "#cd9a0c",
+                        "background": "#f0f4f8",
+                        "secondary-fixed": "#b9eaff",
+                        "surface": "#faf9fc",
+                        "outline": "#73777f",
+                        "surface-tint": "#436084",
+                        "surface-bright": "#faf9fc",
+                        "secondary-container": "#8fdfff",
+                        "surface-dim": "#dad9dd",
+                        "outline-variant": "#c3c6cf",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#261a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "12px",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "margin": "32px",
+                        "2xl": "48px",
+                        "sm": "12px",
+                        "base": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "headline-sm": ["Poppins"],
+                        "headline-md": ["Poppins"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "button": ["Inter"],
+                        "headline-lg": ["Poppins"],
+                        "body-md": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-teal {
+            animation: pulse-teal 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-teal {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .6; }
+        }
+        .gradient-navy {
+            background: linear-gradient(135deg, #002444 0%, #254d75 100%);
+        }
+        .gold-border {
+            border-left: 4px solid #d4a017;
+        }
+        .card-shadow {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .kpi-gradient {
+            position: relative;
+        }
+        .kpi-gradient::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #002444, #0e7490);
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-xl">
+<main class="max-w-[1440px] mx-auto px-margin pt-xl">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between mb-xl gap-md">
+<div class="flex items-center gap-md">
+<div class="bg-primary-container p-sm rounded-lg">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-size: 32px;">psychology</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Simulador de Escenarios</h1>
+<div class="flex flex-wrap gap-xs mt-base">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-teal mr-xs"></span>
+                            MOTOR PREDICTIVO IA
+                        </span>
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-caps text-label-caps">
+                            TRIANGULADO CON FODA + COMPETENCIA + BI
+                        </span>
+</div>
+</div>
+</div>
+<button class="gradient-navy text-on-primary font-button text-button px-lg py-sm rounded-lg flex items-center gap-xs shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Nueva Simulación Personalizada
+            </button>
+</header>
+<!-- Chat / Prompt Input Bar -->
+<section class="mb-xl">
+<div class="bg-white rounded-xl card-shadow border border-outline-variant/30 p-md">
+<div class="relative group">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline group-focus-within:text-secondary transition-colors">chat_bubble</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-container-lowest border border-outline-variant rounded-lg font-body-lg text-body-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="¿Qué pasaría si...?" type="text"/>
+</div>
+<div class="mt-md flex flex-wrap gap-xs">
+<button class="px-md py-xs rounded-full bg-secondary text-on-secondary font-body-sm text-body-sm border border-secondary shadow-sm active:scale-95 transition-all">TransPunta baja tarifas 20%</button>
+<button class="px-md py-xs rounded-full bg-white text-on-surface-variant font-body-sm text-body-sm border border-outline-variant hover:border-secondary hover:text-secondary transition-all">Perdemos contrato con TUI</button>
+<button class="px-md py-xs rounded-full bg-white text-on-surface-variant font-body-sm text-body-sm border border-outline-variant hover:border-secondary hover:text-secondary transition-all">Compramos 10 vehículos nuevos</button>
+<button class="px-md py-xs rounded-full bg-white text-on-surface-variant font-body-sm text-body-sm border border-outline-variant hover:border-secondary hover:text-secondary transition-all">Gasoil sube RD$25/galón</button>
+<button class="px-md py-xs rounded-full bg-white text-on-surface-variant font-body-sm text-body-sm border border-outline-variant hover:border-secondary hover:text-secondary transition-all">Abrimos ruta a Samaná</button>
+<button class="px-md py-xs rounded-full bg-white text-on-surface-variant font-body-sm text-body-sm border border-outline-variant hover:border-secondary hover:text-secondary transition-all">Apple Vacations nos da exclusividad</button>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Content Area: Active Scenario -->
+<div class="lg:col-span-9 space-y-gutter">
+<!-- Main Scenario Card -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant/30 gold-border overflow-hidden">
+<div class="p-lg">
+<div class="flex flex-col md:flex-row justify-between gap-md mb-lg">
+<div class="space-y-xs">
+<span class="bg-error-container text-on-error-container px-sm py-[2px] rounded-full font-label-caps text-label-caps">AMENAZA COMPETITIVA</span>
+<h2 class="font-headline-md text-headline-md text-primary">TransPunta baja tarifas 20%</h2>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs">
+<span class="font-body-sm text-body-sm text-outline">Análisis IA:</span>
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-[87%] h-full bg-secondary"></div>
+</div>
+<span class="font-body-sm text-body-sm text-secondary font-bold">87% Confianza</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-outline">database</span>
+<span class="font-body-sm text-body-sm text-outline">Fuentes: M8b, M8a, M5, FODA</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Ejecución Proyectada</span>
+<div class="text-secondary font-headline-md text-headline-md">+ DOP $3.8M <span class="text-body-sm font-normal text-outline">vs Inacción</span></div>
+</div>
+</div>
+<!-- Impacto Proyectado Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+<div class="kpi-gradient bg-surface-container-low p-md rounded-lg">
+<h3 class="font-label-caps text-label-caps text-outline mb-xs uppercase">Impacto Financiero</h3>
+<p class="font-headline-sm text-headline-sm text-error flex items-center gap-xs">
+<span class="material-symbols-outlined">trending_down</span>
+                                    DOP $1.2M <span class="text-body-sm">/trim</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Riesgo de pérdida directa proyectada.</p>
+</div>
+<div class="kpi-gradient bg-surface-container-low p-md rounded-lg">
+<h3 class="font-label-caps text-label-caps text-outline mb-xs uppercase">Clientes Afectados</h3>
+<p class="font-headline-sm text-headline-sm text-tertiary-container">Sunwing y FTI</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Segmentos altamente vulnerables al precio.</p>
+</div>
+<div class="kpi-gradient bg-surface-container-low p-md rounded-lg">
+<h3 class="font-label-caps text-label-caps text-outline mb-xs uppercase">Cuota de Mercado</h3>
+<p class="font-headline-sm text-headline-sm text-on-error-container">Posición #2 → #3</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Riesgo crítico de pérdida de liderazgo.</p>
+</div>
+</div>
+<!-- Respuesta Recomendada Timeline -->
+<div class="mb-lg">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md">Respuesta Recomendada</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg relative">
+<div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-[2px] bg-outline-variant -z-10"></div>
+<div class="space-y-sm bg-white p-md rounded-lg border border-outline-variant shadow-sm">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold">1</div>
+<p class="font-body-md text-body-md text-primary font-bold">Resistencia Estratégica</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">No igualar precio. Enfatizar 94.2% puntualidad vs 78% del competidor.</p>
+</div>
+<div class="space-y-sm bg-white p-md rounded-lg border border-outline-variant shadow-sm">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold">2</div>
+<p class="font-body-md text-body-md text-primary font-bold">Blindaje VIP</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lanzar paquete Premium para Sunwing/FTI con herramientas digitales de tracking.</p>
+</div>
+<div class="space-y-sm bg-white p-md rounded-lg border border-outline-variant shadow-sm">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold">3</div>
+<p class="font-body-md text-body-md text-primary font-bold">Captura Agresiva</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Atracción de clientes insatisfechos de la competencia por baja calidad de servicio.</p>
+</div>
+</div>
+</div>
+<!-- Simulación Financiera Chart -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-sm text-headline-sm text-primary">Simulación Financiera (Proyección 12 Meses)</h3>
+<div class="flex gap-md">
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-error border-2 border-error border-dashed"></span>
+<span class="font-body-sm text-body-sm text-outline">Si no actuamos (-12%)</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-body-sm text-body-sm text-outline">Plan 3 Fases (+4%)</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="relative h-64 w-full flex items-end justify-between gap-2 border-b border-outline-variant pt-lg">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-t border-outline-variant/30 w-full h-0"></div>
+<div class="border-t border-outline-variant/30 w-full h-0"></div>
+<div class="border-t border-outline-variant/30 w-full h-0"></div>
+<div class="border-t border-outline-variant/30 w-full h-0"></div>
+</div>
+<!-- Illustrative growth lines using SVGs -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 800 200">
+<path d="M0,100 L160,110 L320,130 L480,150 L640,170 L800,180" fill="none" stroke="#ba1a1a" stroke-dasharray="8,4" stroke-width="3"></path>
+<path d="M0,100 L160,95 L320,90 L480,80 L640,70 L800,60" fill="none" stroke="#006781" stroke-width="4"></path>
+<!-- Highlighting the difference -->
+<rect fill="rgba(14, 116, 144, 0.1)" height="120" width="10" x="790" y="60"></rect>
+</svg>
+<div class="absolute right-0 top-1/2 -translate-y-1/2 bg-secondary text-on-secondary px-md py-xs rounded-lg shadow-xl translate-x-1/2 md:translate-x-0">
+<p class="font-bold text-headline-sm">DOP $3.8M</p>
+<p class="text-[10px] uppercase font-bold">Diferencia Neta</p>
+</div>
+</div>
+<div class="flex justify-between mt-sm text-outline font-label-caps text-label-caps uppercase">
+<span>Mes 1</span>
+<span>Mes 3</span>
+<span>Mes 6</span>
+<span>Mes 9</span>
+<span>Mes 12</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Historial bottom card -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant/30 overflow-hidden">
+<div class="p-md border-b border-outline-variant/30 bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Historial de Simulaciones</h3>
+<button class="text-secondary font-button text-button flex items-center gap-xs">
+                            Ver todo el historial <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-low/50 text-outline uppercase font-label-caps text-label-caps">
+<tr>
+<th class="px-lg py-md">Fecha</th>
+<th class="px-lg py-md">Escenario</th>
+<th class="px-lg py-md">Resultado Est.</th>
+<th class="px-lg py-md">Decisión Tomada</th>
+<th class="px-lg py-md">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md text-outline">12 Oct, 2023</td>
+<td class="px-lg py-md font-bold text-primary">Expansión Bávaro - Fase 2</td>
+<td class="px-lg py-md text-secondary">+15% Rentabilidad</td>
+<td class="px-lg py-md italic">Aprobado - Ejecución Inmediata</td>
+<td class="px-lg py-md">
+<span class="px-sm py-[2px] rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-[10px]">IMPLEMENTADO</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md text-outline">08 Oct, 2023</td>
+<td class="px-lg py-md font-bold text-primary">Escasez AdBlue Regional</td>
+<td class="px-lg py-md text-error">-DOP $400k/mes</td>
+<td class="px-lg py-md italic">Compra masiva stock preventivo</td>
+<td class="px-lg py-md">
+<span class="px-sm py-[2px] rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-[10px]">IMPLEMENTADO</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md text-outline">01 Oct, 2023</td>
+<td class="px-lg py-md font-bold text-primary">Incentivos Fiscales Ley 158-01</td>
+<td class="px-lg py-md text-tertiary-container">Créditos Fiscales</td>
+<td class="px-lg py-md italic">En revisión legal</td>
+<td class="px-lg py-md">
+<span class="px-sm py-[2px] rounded-full bg-surface-container-highest text-on-surface-variant font-label-caps text-[10px]">PENDIENTE</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Sidebar: Otros Escenarios -->
+<div class="lg:col-span-3 space-y-md">
+<div class="flex items-center justify-between px-xs">
+<h3 class="font-headline-sm text-headline-sm text-primary">Otros Escenarios</h3>
+<span class="bg-primary-container text-primary-fixed-dim rounded-full w-6 h-6 flex items-center justify-center text-[10px] font-bold">5</span>
+</div>
+<div class="space-y-md">
+<!-- Scenario Card 2 -->
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 card-shadow hover:border-secondary cursor-pointer transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="px-sm py-[2px] rounded-full bg-error-container text-on-error-container font-label-caps text-[10px]">CRÍTICO</span>
+<span class="material-symbols-outlined text-outline text-[18px]">more_vert</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-primary mb-xs">Perdemos contrato con TUI</h4>
+<div class="flex items-center gap-xs text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                            85% Probabilidad
+                        </div>
+</div>
+<!-- Scenario Card 3 -->
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 card-shadow hover:border-secondary cursor-pointer transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="px-sm py-[2px] rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-[10px]">OPORTUNIDAD</span>
+<span class="material-symbols-outlined text-outline text-[18px]">more_vert</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-primary mb-xs">Compramos 10 vehículos nuevos</h4>
+<div class="flex items-center gap-xs text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                            +12% Capacidad
+                        </div>
+</div>
+<!-- Scenario Card 4 -->
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 card-shadow hover:border-secondary cursor-pointer transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="px-sm py-[2px] rounded-full bg-error-container text-on-error-container font-label-caps text-[10px]">RIESGO</span>
+<span class="material-symbols-outlined text-outline text-[18px]">more_vert</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-primary mb-xs">Gasoil sube RD$25/galón</h4>
+<div class="flex items-center gap-xs text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                            DOP $650k Impacto
+                        </div>
+</div>
+<!-- Scenario Card 5 -->
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 card-shadow hover:border-secondary cursor-pointer transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="px-sm py-[2px] rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-caps text-[10px]">ESTRATÉGICO</span>
+<span class="material-symbols-outlined text-outline text-[18px]">more_vert</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-primary mb-xs">Abrimos ruta a Samaná</h4>
+<div class="flex items-center gap-xs text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                            Nuevo Mercado
+                        </div>
+</div>
+<!-- Scenario Card 6 -->
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 card-shadow hover:border-secondary cursor-pointer transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="px-sm py-[2px] rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-[10px]">ESTRATÉGICO</span>
+<span class="material-symbols-outlined text-outline text-[18px]">more_vert</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-primary mb-xs">Apple Vacations Exclusividad</h4>
+<div class="flex items-center gap-xs text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                            +30% Volumen
+                        </div>
+</div>
+</div>
+<!-- Strategic Helper Card -->
+<div class="bg-primary-container p-lg rounded-xl text-on-primary-container mt-xl space-y-md">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-size: 40px;">lightbulb</span>
+<p class="font-headline-sm text-headline-sm leading-tight text-white">¿Necesitas una simulación de estrés?</p>
+<p class="font-body-sm text-body-sm opacity-80">Prueba combinar "Subida de combustible" con "Baja de tarifas de competencia" para ver la resiliencia del negocio.</p>
+<button class="w-full bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-lg py-sm font-button text-button transition-colors">
+                        Simulación de Estrés Multi-Variable
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for chips
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if(this.classList.contains('active-chip')) return;
+                
+                // Add active state if it was a chip
+                if(this.parentElement.classList.contains('flex-wrap')) {
+                    document.querySelectorAll('.flex-wrap button').forEach(b => {
+                        b.classList.remove('bg-secondary', 'text-on-secondary', 'border-secondary');
+                        b.classList.add('bg-white', 'text-on-surface-variant', 'border-outline-variant');
+                    });
+                    this.classList.remove('bg-white', 'text-on-surface-variant', 'border-outline-variant');
+                    this.classList.add('bg-secondary', 'text-on-secondary', 'border-secondary');
+                }
+            });
+        });
+    </script>
+</body></html>

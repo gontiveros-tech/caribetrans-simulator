@@ -841,6 +841,7 @@
       items: [
         { id: 'foda',         label: 'Análisis FODA',           icon: 'fa-chess',           activo: true, page: 'pages/Analisis_FODA.html' },
         { id: 'inteligencia', label: 'Inteligencia Competitiva', icon: 'fa-binoculars',      activo: true, page: 'pages/Inteligencia_Competitiva.html' },
+        { id: 'simulador',    label: 'Simulador Escenarios',     icon: 'fa-sliders',         activo: true, page: 'pages/Simulador_Escenarios.html' },
       ],
     },
     {
