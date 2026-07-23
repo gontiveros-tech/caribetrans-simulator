@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Facturación | CaribeTrans Logistics Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#4a3500",
+                    "surface-variant": "#e3e2e5",
+                    "inverse-on-surface": "#f1f0f3",
+                    "error": "#ba1a1a",
+                    "tertiary": "#2f2100",
+                    "surface-dim": "#dad9dd",
+                    "secondary-container": "#8fdfff",
+                    "on-secondary-container": "#00647d",
+                    "on-tertiary-container": "#cd9a0c",
+                    "inverse-primary": "#abc9f2",
+                    "surface-container": "#eeedf1",
+                    "surface-container-low": "#f4f3f6",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c6cf",
+                    "on-primary-fixed-variant": "#2a486b",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1a1c1e",
+                    "inverse-surface": "#2f3033",
+                    "on-tertiary-fixed": "#261a00",
+                    "tertiary-fixed-dim": "#f6be39",
+                    "secondary-fixed-dim": "#81d1f0",
+                    "on-surface-variant": "#43474e",
+                    "surface-container-high": "#e9e8eb",
+                    "surface-bright": "#faf9fc",
+                    "surface": "#faf9fc",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "on-primary-fixed": "#001c37",
+                    "surface-container-highest": "#e3e2e5",
+                    "on-secondary-fixed": "#001f29",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "surface-tint": "#436084",
+                    "outline": "#73777f",
+                    "secondary": "#006781",
+                    "primary-fixed": "#d2e4ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#1a3a5c",
+                    "on-primary-container": "#87a4cc",
+                    "primary": "#1a3a5c", /* Navy as defined in palette */
+                    "on-error": "#ffffff",
+                    "background": "#f0f4f8",
+                    "secondary-fixed": "#b9eaff",
+                    "tertiary-fixed": "#ffdfa0",
+                    "primary-fixed-dim": "#abc9f2",
+                    "on-secondary-fixed-variant": "#004d62",
+                    "brand-teal": "#0e7490",
+                    "brand-gold": "#d4a017",
+                    "brand-coral": "#e07b54"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xl": "32px",
+                    "xs": "8px",
+                    "lg": "24px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "2xl": "48px",
+                    "margin": "32px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Poppins"],
+                    "body-sm": ["Inter"],
+                    "headline-sm": ["Poppins"],
+                    "headline-lg": ["Poppins"],
+                    "button": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .kpi-gradient { border-left: 4px solid; border-image: linear-gradient(to bottom, #1a3a5c, #0e7490) 1 100%; }
+        .primary-btn { background: linear-gradient(135deg, #1a3a5c 0%, #254d75 100%); transition: all 0.2s ease; }
+        .primary-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .card-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .status-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
+        /* Scrollbar styles */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Sidebar (Shared Component Blueprint Mapping) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-lg z-40 bg-primary dark:bg-surface w-64 hidden md:flex border-r border-outline-variant/20 shadow-md">
+<div class="px-md mb-xl">
+<h1 class="font-headline-sm text-headline-sm font-bold text-white mb-xs">CaribeTrans</h1>
+<p class="text-xs text-on-primary/60 font-medium">Logistics Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-primary-container transition-all px-md py-sm mx-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-button text-button">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-primary-container transition-all px-md py-sm mx-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">directions_bus</span>
+<span class="font-button text-button">Fleet Management</span>
+</a>
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-lg px-md py-sm mx-sm" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-button text-button font-bold">Accounting</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-primary-container transition-all px-md py-sm mx-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-button text-button">Analytics</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-primary-container transition-all px-md py-sm mx-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-button text-button">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-md">
+<button class="w-full flex items-center justify-center gap-2 bg-secondary text-white py-sm rounded-lg font-button text-button hover:bg-secondary/90 transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                Nueva Factura
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen bg-background">
+<!-- Top Bar -->
+<header class="sticky top-0 z-30 bg-surface/90 backdrop-blur-md flex justify-between items-center px-lg h-16 shadow-sm">
+<div class="flex items-center gap-md">
+<span class="md:hidden material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Facturación</h2>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center bg-surface-container px-sm py-xs rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Buscar NCF o Cliente..." type="text"/>
+</div>
+<div class="flex gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">settings</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a logistics administrator, medium close-up, soft office lighting, high-end corporate style, neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWOkgxjxIln6qHMKlGJaskqjoKaaNDfLEbY8ESd4z_A6F2zAJyJ2lf40gUrBYImxQ6b-kJc7vF8TVs7QiLC_CdXkpYOuzVD-aywPlX3peEW2uXDVf-5gsr4kxDrzQ-5lfAwBsMriKomPm4PIfRjzw-XRwFvLp9RR0XVV6f1ucacsVrFudlzFw5OIqJ46K76pnnxM9fWLUJ4gGTOpCX_NLdhBptpNN34rEizconvoPlLJpToksGd7FJlw"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-lg space-y-lg">
+<!-- Page Header Actions -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md">
+<div class="space-y-1">
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Gestión de Comprobantes</h3>
+<p class="text-body-sm text-on-surface-variant">Histórico y control de facturación fiscal.</p>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-2 px-md py-sm bg-white border border-outline-variant text-primary font-button text-button rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">download</span>
+                        Exportar
+                    </button>
+<button class="flex items-center gap-2 px-md py-sm primary-btn text-white font-button text-button rounded-lg">
+<span class="material-symbols-outlined">add</span>
+                        Nueva Factura
+                    </button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="bg-white p-md rounded-xl card-shadow kpi-gradient flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-body-sm text-on-surface-variant font-medium">Facturado (Jul)</span>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div>
+<span class="text-[12px] font-bold text-primary block">DOP</span>
+<span class="text-headline-md font-bold text-primary">$8,742,300</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl card-shadow kpi-gradient flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-body-sm text-on-surface-variant font-medium">Por Cobrar</span>
+<span class="material-symbols-outlined text-brand-gold">pending_actions</span>
+</div>
+<div>
+<span class="text-[12px] font-bold text-brand-gold block">DOP</span>
+<span class="text-headline-md font-bold text-brand-gold">$2,315,600</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl card-shadow kpi-gradient flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-body-sm text-on-surface-variant font-medium">Vencidas (&gt;30 días)</span>
+<span class="material-symbols-outlined text-brand-coral">warning</span>
+</div>
+<div>
+<span class="text-[12px] font-bold text-brand-coral block">DOP</span>
+<span class="text-headline-md font-bold text-brand-coral">$876,400</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl card-shadow kpi-gradient flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-body-sm text-on-surface-variant font-medium">NCF Emitidos</span>
+<span class="material-symbols-outlined text-brand-teal">receipt_long</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold text-brand-teal">89</span>
+<span class="text-body-sm text-on-surface-variant">de 1,000</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-brand-teal h-full w-[8.9%]"></div>
+</div>
+</div>
+</div>
+<!-- Dashboard Body: Filters & Table -->
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-lg items-start">
+<!-- Main Table Section -->
+<div class="xl:col-span-3 space-y-md">
+<!-- Horizontal Filters -->
+<div class="bg-white p-md rounded-xl card-shadow flex flex-wrap items-center gap-md">
+<div class="flex flex-col gap-1 min-w-[140px]">
+<label class="text-[10px] font-bold text-primary/60 uppercase">Estado</label>
+<select class="bg-surface-container-low border-outline-variant rounded-lg text-body-sm focus:ring-secondary focus:border-secondary py-1.5 px-xs">
+<option>Todas</option>
+<option>Pendiente</option>
+<option>Pagada</option>
+<option>Parcial</option>
+<option>Vencida</option>
+<option>Anulada</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 min-w-[180px]">
+<label class="text-[10px] font-bold text-primary/60 uppercase">Touroperador</label>
+<select class="bg-surface-container-low border-outline-variant rounded-lg text-body-sm focus:ring-secondary focus:border-secondary py-1.5 px-xs">
+<option>Todos</option>
+<option>TUI</option>
+<option>Apple Vacations</option>
+<option>Sunwing</option>
+<option>Palladium</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-[10px] font-bold text-primary/60 uppercase">Rango de Fecha</label>
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded-lg px-xs py-1.5 gap-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span>
+<input class="bg-transparent border-none p-0 text-body-sm w-40 focus:ring-0" type="text" value="Jul 01 - Jul 31, 2026"/>
+</div>
+</div>
+<div class="ml-auto">
+<button class="text-secondary font-button text-button hover:underline">Limpiar Filtros</button>
+</div>
+</div>
+<!-- Invoices Table -->
+<div class="bg-white rounded-xl card-shadow overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-primary border-b border-outline-variant">
+<tr>
+<th class="px-md py-sm font-bold text-[12px] uppercase">NCF</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase">Fecha</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase">Cliente / Touroperador</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase text-right">Subtotal</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase text-right">ITBIS</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase text-right">Total</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase">Estado</th>
+<th class="px-md py-sm font-bold text-[12px] uppercase text-center">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-md font-bold text-primary text-body-sm">B0100000341</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">20/07/2026</td>
+<td class="px-md py-md">
+<div class="text-body-sm font-semibold text-on-surface">TUI Dominicana SRL</div>
+<div class="text-[11px] text-on-surface-variant">TUI</div>
+</td>
+<td class="px-md py-md text-right text-body-sm">DOP $1,245,000</td>
+<td class="px-md py-md text-right text-body-sm">DOP $224,100</td>
+<td class="px-md py-md text-right font-bold text-primary text-body-sm">DOP $1,469,100</td>
+<td class="px-md py-md">
+<span class="status-badge bg-emerald-100 text-emerald-800">Pagada</span>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-xs">
+<button class="p-1 hover:bg-primary/10 rounded transition-colors text-primary" title="Ver"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1 hover:bg-secondary/10 rounded transition-colors text-secondary" title="PDF"><span class="material-symbols-outlined text-[20px]">picture_as_pdf</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-md font-bold text-primary text-body-sm">B0100000342</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">20/07/2026</td>
+<td class="px-md py-md">
+<div class="text-body-sm font-semibold text-on-surface">Apple Leisure Group</div>
+<div class="text-[11px] text-on-surface-variant">Apple Vacations</div>
+</td>
+<td class="px-md py-md text-right text-body-sm">DOP $892,500</td>
+<td class="px-md py-md text-right text-body-sm">DOP $160,650</td>
+<td class="px-md py-md text-right font-bold text-primary text-body-sm">DOP $1,053,150</td>
+<td class="px-md py-md">
+<span class="status-badge bg-amber-100 text-amber-800">Pendiente</span>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-xs py-1 text-[11px] font-bold border border-secondary text-secondary rounded hover:bg-secondary hover:text-white transition-all">Cobrar</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-md font-bold text-primary text-body-sm">B0100000343</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">21/07/2026</td>
+<td class="px-md py-md">
+<div class="text-body-sm font-semibold text-on-surface">Sunwing Travel RD</div>
+<div class="text-[11px] text-on-surface-variant">Sunwing</div>
+</td>
+<td class="px-md py-md text-right text-body-sm">DOP $567,800</td>
+<td class="px-md py-md text-right text-body-sm">DOP $102,204</td>
+<td class="px-md py-md text-right font-bold text-primary text-body-sm">DOP $670,004</td>
+<td class="px-md py-md">
+<span class="status-badge bg-amber-100 text-amber-800">Pendiente</span>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-xs py-1 text-[11px] font-bold border border-secondary text-secondary rounded hover:bg-secondary hover:text-white transition-all">Cobrar</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-md font-bold text-primary text-body-sm">B0100000344</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">21/07/2026</td>
+<td class="px-md py-md">
+<div class="text-body-sm font-semibold text-on-surface">Palladium Hotel Group</div>
+<div class="text-[11px] text-on-surface-variant">Palladium</div>
+</td>
+<td class="px-md py-md text-right text-body-sm">DOP $1,134,200</td>
+<td class="px-md py-md text-right text-body-sm">DOP $204,156</td>
+<td class="px-md py-md text-right font-bold text-primary text-body-sm">DOP $1,338,356</td>
+<td class="px-md py-md">
+<span class="status-badge bg-blue-100 text-blue-800">Parcial</span>
+<div class="text-[10px] mt-1 text-on-surface-variant italic">DOP $800,000 rec.</div>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-xs py-1 text-[11px] font-bold border border-secondary text-secondary rounded hover:bg-secondary hover:text-white transition-all">Cobrar</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-md font-bold text-primary text-body-sm">B0100000338</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">05/07/2026</td>
+<td class="px-md py-md">
+<div class="text-body-sm font-semibold text-on-surface">FTI Touristik RD</div>
+<div class="text-[11px] text-on-surface-variant">FTI</div>
+</td>
+<td class="px-md py-md text-right text-body-sm">DOP $445,600</td>
+<td class="px-md py-md text-right text-body-sm">DOP $80,208</td>
+<td class="px-md py-md text-right font-bold text-primary text-body-sm">DOP $525,808</td>
+<td class="px-md py-md">
+<span class="status-badge bg-red-100 text-red-800">Vencida</span>
+<div class="text-[10px] mt-1 text-red-600 font-bold">18 DÍAS</div>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-xs py-1 text-[11px] font-bold border border-brand-coral text-brand-coral rounded hover:bg-brand-coral hover:text-white transition-all">Recordatorio</button>
+</div>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-md font-bold text-primary text-body-sm">B0400000012</td>
+<td class="px-md py-md text-on-surface-variant text-body-sm">18/07/2026</td>
+<td class="px-md py-md">
+<div class="text-body-sm font-semibold text-on-surface">TUI Dominicana SRL</div>
+<div class="text-[11px] text-on-surface-variant">TUI</div>
+</td>
+<td class="px-md py-md text-right text-error font-medium text-body-sm">-DOP $67,500</td>
+<td class="px-md py-md text-right text-error font-medium text-body-sm">-DOP $12,150</td>
+<td class="px-md py-md text-right text-error font-bold text-body-sm">-DOP $79,650</td>
+<td class="px-md py-md">
+<span class="status-badge bg-surface-variant text-on-surface-variant">NC Aplicada</span>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center">
+<button class="p-1 hover:bg-primary/10 rounded transition-colors text-primary"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Summary Footer -->
+<div class="bg-primary p-md text-white">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md items-center">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold uppercase opacity-70">Total Facturado</span>
+<span class="text-headline-sm font-bold">DOP $4,223,100</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold uppercase opacity-70">Total ITBIS</span>
+<span class="text-headline-sm font-bold">DOP $760,118</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold uppercase opacity-70">Total Cobrado</span>
+<span class="text-headline-sm font-bold text-secondary-container">DOP $2,269,100</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] font-bold uppercase opacity-70">Saldo Pendiente</span>
+<span class="text-headline-sm font-bold text-brand-gold">DOP $2,714,118</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Content: NCF Controls -->
+<div class="xl:col-span-1 space-y-lg">
+<!-- NCF Control Card -->
+<div class="bg-white rounded-xl card-shadow overflow-hidden">
+<div class="bg-surface-container-high p-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Secuencias NCF</h4>
+</div>
+<div class="p-md space-y-md">
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-bold text-body-sm text-primary">B01 (Fiscal)</span>
+<span class="text-[11px] text-on-surface-variant">Vence 31/12/2026</span>
+</div>
+<span class="font-bold text-primary">153 <span class="text-[10px] font-normal opacity-70">rest.</span></span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full">
+<div class="bg-primary h-full w-[30%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-bold text-body-sm text-primary">B02 (Consumidor)</span>
+<span class="text-[11px] text-on-surface-variant">Vence 31/12/2026</span>
+</div>
+<span class="font-bold text-primary">688 <span class="text-[10px] font-normal opacity-70">rest.</span></span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full">
+<div class="bg-brand-teal h-full w-[68%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-bold text-body-sm text-primary">B04 (Nota Crédito)</span>
+<span class="text-[11px] text-on-surface-variant">Vence 31/12/2026</span>
+</div>
+<span class="font-bold text-primary">94 <span class="text-[10px] font-normal opacity-70">rest.</span></span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full">
+<div class="bg-brand-coral h-full w-[18%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-bold text-body-sm text-primary">B14 (Reg. Especial)</span>
+<span class="text-[11px] text-on-surface-variant">Vence 31/12/2026</span>
+</div>
+<span class="font-bold text-primary">45 <span class="text-[10px] font-normal opacity-70">rest.</span></span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full">
+<div class="bg-brand-gold h-full w-[45%]"></div>
+</div>
+</div>
+</div>
+<div class="p-md bg-surface-container-low border-t border-outline-variant">
+<button class="w-full text-secondary font-button text-button py-2 border border-secondary rounded-lg hover:bg-secondary-container transition-all">Solicitar Secuencias</button>
+</div>
+</div>
+<!-- Quick Support / Actions -->
+<div class="bg-white p-md rounded-xl card-shadow space-y-sm">
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Ayuda DGII</h4>
+<p class="text-body-sm text-on-surface-variant">¿Tienes dudas con los comprobantes? Consulta nuestra guía rápida.</p>
+<a class="flex items-center gap-xs text-secondary font-bold text-body-sm group" href="#">
+                            Centro de Conocimiento
+                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="p-lg mt-xl text-center border-t border-outline-variant/30">
+<p class="text-body-sm text-on-surface-variant">© 2026 CaribeTrans. Todos los derechos reservados. Sistema autorizado por DGII.</p>
+</footer>
+</main>
+<!-- Mobile Bottom Nav (Shared Component Mapping) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface/90 backdrop-blur-md flex justify-around items-center py-sm border-t border-outline-variant z-50">
+<div class="flex flex-col items-center text-on-surface-variant active:text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px]">Inicio</span>
+</div>
+<div class="flex flex-col items-center text-primary font-bold">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-[10px]">Facturas</span>
+</div>
+<div class="relative -top-6">
+<button class="bg-primary text-white h-14 w-14 rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:text-primary">
+<span class="material-symbols-outlined">directions_bus</span>
+<span class="text-[10px]">Flota</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:text-primary">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px]">Perfil</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                this.appendChild(ripples);
+                setTimeout(() => { ripples.remove() }, 1000);
+            });
+        });
+    </script>
+</body></html>

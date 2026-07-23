@@ -79,20 +79,32 @@
     const item = findNavItem(id);
     if (item && item.accion === 'logout') { CT.logout(); return; }
 
-    // Solo dashboard y operaciones tienen sección real; el resto → placeholder
+    // Dashboard y operaciones tienen sección real; los módulos con `page`
+    // se cargan en un iframe; el resto muestra el placeholder comercial.
     const isReal = id === 'dashboard' || id === 'operaciones';
+    const isPage = item && item.page;
 
     CT.$$('.nav-item').forEach(function (n) { n.classList.toggle('active', n.dataset.nav === id); });
 
     CT.$$('.section').forEach(function (s) { s.classList.remove('active'); });
 
+    // Descarga el iframe cuando no lo usamos, para liberar memoria del módulo previo.
+    const frame = document.getElementById('module-frame');
+
     if (isReal) {
+      if (frame) frame.removeAttribute('src');
       const sec = document.getElementById('section-' + id);
       if (sec) { sec.classList.add('active'); sec.classList.add('fade-in'); }
       updateBreadcrumb(item ? item.label : id);
       if (id === 'dashboard' && window.CT_Dashboard) window.CT_Dashboard.render();
       if (id === 'operaciones' && window.CT_Operations) window.CT_Operations.render();
+    } else if (isPage) {
+      if (frame) frame.setAttribute('src', item.page);
+      const sec = document.getElementById('section-iframe');
+      sec.classList.add('active', 'fade-in');
+      updateBreadcrumb(item.label);
     } else {
+      if (frame) frame.removeAttribute('src');
       renderPlaceholder(item ? item.label : id);
       const sec = document.getElementById('section-placeholder');
       sec.classList.add('active', 'fade-in');

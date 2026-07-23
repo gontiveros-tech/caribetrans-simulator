@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CaribeTrans | Costos Operativos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .kpi-gradient {
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom, #002444, #006781) 1;
+        }
+        .chart-grid-line {
+            stroke: #e2e8f0;
+            stroke-dasharray: 4;
+        }
+        @keyframes growUp {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+        .animate-grow {
+            transform-origin: bottom;
+            animation: growUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-tertiary-container": "#cd9a0c",
+                "surface-container-high": "#e9e8eb",
+                "primary": "#002444",
+                "surface-dim": "#dad9dd",
+                "surface-container-lowest": "#ffffff",
+                "on-error-container": "#93000a",
+                "on-error": "#ffffff",
+                "surface-variant": "#e3e2e5",
+                "background": "#faf9fc",
+                "error": "#ba1a1a",
+                "primary-fixed-dim": "#abc9f2",
+                "secondary-fixed-dim": "#81d1f0",
+                "inverse-surface": "#2f3033",
+                "tertiary-container": "#4a3500",
+                "on-tertiary": "#ffffff",
+                "inverse-primary": "#abc9f2",
+                "on-primary-container": "#87a4cc",
+                "on-surface": "#1a1c1e",
+                "tertiary-fixed-dim": "#f6be39",
+                "surface-tint": "#436084",
+                "secondary": "#006781",
+                "surface-container-highest": "#e3e2e5",
+                "outline": "#73777f",
+                "on-tertiary-fixed": "#261a00",
+                "on-secondary-fixed": "#001f29",
+                "tertiary-fixed": "#ffdfa0",
+                "on-secondary": "#ffffff",
+                "surface-container-low": "#f4f3f6",
+                "error-container": "#ffdad6",
+                "primary-fixed": "#d2e4ff",
+                "on-secondary-fixed-variant": "#004d62",
+                "on-surface-variant": "#43474e",
+                "primary-container": "#1a3a5c",
+                "on-primary-fixed": "#001c37",
+                "surface-container": "#eeedf1",
+                "outline-variant": "#c3c6cf",
+                "surface-bright": "#faf9fc",
+                "surface": "#faf9fc",
+                "on-primary-fixed-variant": "#2a486b",
+                "secondary-container": "#8fdfff",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#f1f0f3",
+                "on-tertiary-fixed-variant": "#5c4300",
+                "tertiary": "#2f2100",
+                "on-secondary-container": "#00647d",
+                "on-background": "#1a1c1e",
+                "secondary-fixed": "#b9eaff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "md": "16px",
+                "xl": "32px",
+                "lg": "24px",
+                "xs": "8px",
+                "gutter": "24px",
+                "margin": "32px",
+                "base": "4px",
+                "2xl": "48px",
+                "sm": "12px"
+        },
+        "fontFamily": {
+                "headline-lg": ["Poppins"],
+                "headline-sm": ["Poppins"],
+                "button": ["Inter"],
+                "body-sm": ["Inter"],
+                "headline-md": ["Poppins"],
+                "display-lg": ["Poppins"],
+                "body-md": ["Inter"],
+                "label-caps": ["Inter"],
+                "body-lg": ["Inter"]
+        },
+        "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+        }
+      },
+    },
+  }
+</script>
+<main class="max-w-[1440px] mx-auto px-margin py-lg">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Costos Operativos</h1>
+<p class="text-on-surface-variant font-body-md">Visión general del rendimiento financiero de la flota.</p>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative">
+<select class="appearance-none bg-surface border border-outline-variant rounded-lg pl-md pr-10 py-xs font-body-md focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none cursor-pointer">
+<option>Enero 2026</option>
+<option>Mayo 2026</option>
+<option>Junio 2026</option>
+<option selected="">Julio 2026</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<button class="bg-gradient-to-r from-primary to-[#254d75] text-on-primary font-button px-lg py-xs rounded-lg flex items-center gap-xs hover:shadow-lg transition-shadow active:scale-95">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                Exportar Reporte
+            </button>
+</div>
+</header>
+<!-- KPI Row -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start mb-xs">
+<span class="text-on-surface-variant font-label-caps uppercase">Costo Total Mes</span>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary mb-xs">DOP $3,842,500</div>
+<div class="flex items-center gap-xs text-secondary-container font-body-sm bg-secondary-container/10 px-2 py-0.5 rounded-full w-fit">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                4.2% vs Junio
+            </div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start mb-xs">
+<span class="text-on-surface-variant font-label-caps uppercase">Combustible</span>
+<span class="material-symbols-outlined text-secondary">local_gas_station</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary mb-xs">DOP $1,956,300</div>
+<div class="text-on-surface-variant font-body-sm">
+<span class="font-bold text-primary">50.9%</span> del presupuesto total
+            </div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start mb-xs">
+<span class="text-on-surface-variant font-label-caps uppercase">Mantenimiento</span>
+<span class="material-symbols-outlined text-secondary">build</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary mb-xs">DOP $876,200</div>
+<div class="text-on-surface-variant font-body-sm">
+<span class="font-bold text-primary">22.8%</span> preventivo y correctivo
+            </div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start mb-xs">
+<span class="text-on-surface-variant font-label-caps uppercase">Peajes</span>
+<span class="material-symbols-outlined text-secondary">alt_route</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary mb-xs">DOP $412,800</div>
+<div class="text-on-surface-variant font-body-sm">
+<span class="font-bold text-primary">10.7%</span> rutas nacionales
+            </div>
+</div>
+</section>
+<!-- Charts Section -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg mb-xl">
+<!-- Stacked Bar Chart -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-sm text-headline-sm text-primary">Histórico de Composición</h3>
+<div class="flex gap-md text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-primary"></span> Comb</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-secondary"></span> Mant</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-on-tertiary-container"></span> Peajes</span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-md relative pt-6">
+<!-- Grid Lines -->
+<div class="absolute inset-x-0 top-6 bottom-0 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-outline-variant/20 w-full"></div>
+<div class="border-b border-outline-variant/20 w-full"></div>
+<div class="border-b border-outline-variant/20 w-full"></div>
+<div class="border-b border-outline-variant/20 w-full"></div>
+</div>
+<!-- Bars -->
+<div class="flex-1 flex flex-col items-center group relative h-full">
+<div class="w-full flex flex-col-reverse h-full px-2 max-w-[40px]">
+<div class="bg-primary/80 h-[45%] rounded-t-sm animate-grow"></div>
+<div class="bg-secondary/80 h-[25%] animate-grow"></div>
+<div class="bg-on-tertiary-container/80 h-[15%] animate-grow"></div>
+<div class="bg-outline-variant/80 h-[10%] animate-grow"></div>
+</div>
+<span class="mt-xs text-body-sm text-on-surface-variant">Feb</span>
+</div>
+<div class="flex-1 flex flex-col items-center group relative h-full">
+<div class="w-full flex flex-col-reverse h-full px-2 max-w-[40px]">
+<div class="bg-primary/80 h-[48%] rounded-t-sm animate-grow" style="animation-delay: 0.1s"></div>
+<div class="bg-secondary/80 h-[22%] animate-grow" style="animation-delay: 0.1s"></div>
+<div class="bg-on-tertiary-container/80 h-[12%] animate-grow" style="animation-delay: 0.1s"></div>
+<div class="bg-outline-variant/80 h-[8%] animate-grow" style="animation-delay: 0.1s"></div>
+</div>
+<span class="mt-xs text-body-sm text-on-surface-variant">Mar</span>
+</div>
+<div class="flex-1 flex flex-col items-center group relative h-full">
+<div class="w-full flex flex-col-reverse h-full px-2 max-w-[40px]">
+<div class="bg-primary/80 h-[52%] rounded-t-sm animate-grow" style="animation-delay: 0.2s"></div>
+<div class="bg-secondary/80 h-[20%] animate-grow" style="animation-delay: 0.2s"></div>
+<div class="bg-on-tertiary-container/80 h-[10%] animate-grow" style="animation-delay: 0.2s"></div>
+<div class="bg-outline-variant/80 h-[12%] animate-grow" style="animation-delay: 0.2s"></div>
+</div>
+<span class="mt-xs text-body-sm text-on-surface-variant">Abr</span>
+</div>
+<div class="flex-1 flex flex-col items-center group relative h-full">
+<div class="w-full flex flex-col-reverse h-full px-2 max-w-[40px]">
+<div class="bg-primary/80 h-[50%] rounded-t-sm animate-grow" style="animation-delay: 0.3s"></div>
+<div class="bg-secondary/80 h-[24%] animate-grow" style="animation-delay: 0.3s"></div>
+<div class="bg-on-tertiary-container/80 h-[11%] animate-grow" style="animation-delay: 0.3s"></div>
+<div class="bg-outline-variant/80 h-[9%] animate-grow" style="animation-delay: 0.3s"></div>
+</div>
+<span class="mt-xs text-body-sm text-on-surface-variant">May</span>
+</div>
+<div class="flex-1 flex flex-col items-center group relative h-full">
+<div class="w-full flex flex-col-reverse h-full px-2 max-w-[40px]">
+<div class="bg-primary/80 h-[49%] rounded-t-sm animate-grow" style="animation-delay: 0.4s"></div>
+<div class="bg-secondary/80 h-[23%] animate-grow" style="animation-delay: 0.4s"></div>
+<div class="bg-on-tertiary-container/80 h-[14%] animate-grow" style="animation-delay: 0.4s"></div>
+<div class="bg-outline-variant/80 h-[10%] animate-grow" style="animation-delay: 0.4s"></div>
+</div>
+<span class="mt-xs text-body-sm text-on-surface-variant">Jun</span>
+</div>
+<div class="flex-1 flex flex-col items-center group relative h-full">
+<div class="w-full flex flex-col-reverse h-full px-2 max-w-[40px]">
+<div class="bg-primary h-[51%] rounded-t-sm animate-grow" style="animation-delay: 0.5s"></div>
+<div class="bg-secondary h-[23%] animate-grow" style="animation-delay: 0.5s"></div>
+<div class="bg-on-tertiary-container h-[11%] animate-grow" style="animation-delay: 0.5s"></div>
+<div class="bg-outline-variant h-[15%] animate-grow" style="animation-delay: 0.5s"></div>
+</div>
+<span class="mt-xs text-body-sm text-primary font-bold">Jul</span>
+</div>
+</div>
+</div>
+<!-- Donut Chart -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 flex flex-col items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary w-full mb-lg text-left">Distribución Mensual</h3>
+<div class="relative w-48 h-48 mb-lg">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#e2e8f0" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#002444" stroke-dasharray="50.9 100" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#006781" stroke-dasharray="22.8 100" stroke-dashoffset="-50.9" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#cd9a0c" stroke-dasharray="10.7 100" stroke-dashoffset="-73.7" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-body-sm text-on-surface-variant">Total</span>
+<span class="text-headline-sm font-bold text-primary">100%</span>
+</div>
+</div>
+<div class="w-full grid grid-cols-2 gap-x-md gap-y-xs">
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-body-sm text-on-surface-variant truncate">Combustible</span>
+<span class="text-body-sm font-bold text-primary ml-auto">50.9%</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-body-sm text-on-surface-variant truncate">Mant.</span>
+<span class="text-body-sm font-bold text-primary ml-auto">22.8%</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
+<span class="text-body-sm text-on-surface-variant truncate">Peajes</span>
+<span class="text-body-sm font-bold text-primary ml-auto">10.7%</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary/40"></div>
+<span class="text-body-sm text-on-surface-variant truncate">Seguros</span>
+<span class="text-body-sm font-bold text-primary ml-auto">8.1%</span>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-lg">
+<!-- Top 5 Vehicles Table -->
+<div class="xl:col-span-2 bg-surface-container-lowest rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 overflow-hidden">
+<div class="p-lg border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low/50">
+<h3 class="font-headline-sm text-headline-sm text-primary">Top 5 Vehículos por Gasto</h3>
+<span class="text-body-sm text-secondary font-semibold cursor-pointer hover:underline">Ver reporte completo</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant/30">
+<th class="px-lg py-md font-semibold">Vehículo</th>
+<th class="px-lg py-md font-semibold text-right">Monto</th>
+<th class="px-lg py-md font-semibold">Motivo Principal</th>
+<th class="px-lg py-md font-semibold text-center">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-bold text-primary">A156733</span>
+<span class="text-body-sm text-on-surface-variant">Hyundai H350</span>
+</div>
+</td>
+<td class="px-lg py-md text-right font-semibold">DOP $287,400</td>
+<td class="px-lg py-md">
+<span class="bg-error-container/20 text-error text-[12px] px-2 py-1 rounded-full font-medium">Mantenimiento mayor (transmisión)</span>
+</td>
+<td class="px-lg py-md text-center">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-bold text-primary">A193822</span>
+<span class="text-body-sm text-on-surface-variant">Hyundai County</span>
+</div>
+</td>
+<td class="px-lg py-md text-right font-semibold">DOP $234,100</td>
+<td class="px-lg py-md text-on-surface-variant">Combustible alto (ruta larga Samaná)</td>
+<td class="px-lg py-md text-center">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-bold text-primary">A387245</span>
+<span class="text-body-sm text-on-surface-variant">Hyundai H100</span>
+</div>
+</td>
+<td class="px-lg py-md text-right font-semibold">DOP $198,600</td>
+<td class="px-lg py-md text-on-surface-variant">Reparación motor + llantas</td>
+<td class="px-lg py-md text-center">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-bold text-primary">A412388</span>
+<span class="text-body-sm text-on-surface-variant">Mercedes Sprinter</span>
+</div>
+</td>
+<td class="px-lg py-md text-right font-semibold">DOP $176,300</td>
+<td class="px-lg py-md text-on-surface-variant">Combustible + peajes Santo Domingo</td>
+<td class="px-lg py-md text-center">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-lg py-md border-b-0">
+<div class="flex flex-col">
+<span class="font-bold text-primary">A287451</span>
+<span class="text-body-sm text-on-surface-variant">Toyota HiAce</span>
+</div>
+</td>
+<td class="px-lg py-md text-right font-semibold border-b-0">DOP $142,800</td>
+<td class="px-lg py-md text-on-surface-variant border-b-0">Combustible (alta rotación aeropuerto)</td>
+<td class="px-lg py-md text-center border-b-0">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Efficiency Cards -->
+<div class="flex flex-col gap-lg">
+<!-- Costo por KM -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 flex flex-col justify-between overflow-hidden relative">
+<div class="absolute top-0 right-0 w-24 h-24 -mt-8 -mr-8 bg-secondary/5 rounded-full blur-2xl"></div>
+<div>
+<span class="text-on-surface-variant font-label-caps uppercase mb-xs block">Costo por Kilómetro</span>
+<div class="font-headline-md text-headline-md text-primary">DOP $18.42/km</div>
+<p class="text-body-sm text-secondary-container font-semibold mt-1">Óptimo (Meta $19.00)</p>
+</div>
+<div class="mt-lg h-16 w-full flex items-end gap-1">
+<div class="bg-secondary/40 h-[60%] w-full rounded-t"></div>
+<div class="bg-secondary/40 h-[65%] w-full rounded-t"></div>
+<div class="bg-secondary/40 h-[58%] w-full rounded-t"></div>
+<div class="bg-secondary/40 h-[72%] w-full rounded-t"></div>
+<div class="bg-secondary/40 h-[68%] w-full rounded-t"></div>
+<div class="bg-secondary h-[55%] w-full rounded-t"></div>
+</div>
+</div>
+<!-- Costo por Pasajero -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-lg">Costo por Pasajero</h3>
+<div class="flex items-baseline gap-xs mb-lg">
+<span class="text-headline-lg font-bold text-primary">DOP $847</span>
+<span class="text-on-surface-variant text-body-sm">promedio flota</span>
+</div>
+<div class="space-y-md">
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Sedán</span>
+<span class="font-bold text-primary">DOP $1,240</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 100%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">SUV</span>
+<span class="font-bold text-primary">DOP $980</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-on-tertiary-container h-full" style="width: 79%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Minivan</span>
+<span class="font-bold text-primary">DOP $720</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 58%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-body-sm">
+<span class="text-on-surface-variant">Autobús</span>
+<span class="font-bold text-primary">DOP $510</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 41%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-2xl border-t border-outline-variant/30 py-lg px-margin flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-low/30">
+<div class="flex items-center gap-sm">
+<span class="font-headline-sm text-primary font-bold">CaribeTrans</span>
+<span class="text-outline-variant">|</span>
+<p class="text-on-surface-variant text-body-sm">© 2026 CaribeTrans Logistics S.A. Todos los derechos reservados.</p>
+</div>
+<div class="flex gap-lg text-body-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Soporte Operativo</a>
+<a class="hover:text-primary transition-colors" href="#">Seguridad de Datos</a>
+<a class="hover:text-primary transition-colors" href="#">API Docs</a>
+</div>
+</footer>
+<script>
+    // Micro-interaction for hover effects on bars
+    document.querySelectorAll('.animate-grow').forEach(bar => {
+        bar.addEventListener('mouseenter', () => {
+            bar.style.filter = 'brightness(1.2)';
+            bar.style.transition = 'filter 0.2s ease';
+        });
+        bar.addEventListener('mouseleave', () => {
+            bar.style.filter = 'brightness(1)';
+        });
+    });
+</script>
+</body></html>

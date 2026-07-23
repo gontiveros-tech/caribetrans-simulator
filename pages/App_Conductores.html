@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CaribeTrans | App Conductores Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#2a486b",
+                    "secondary": "#006781",
+                    "secondary-fixed": "#b9eaff",
+                    "tertiary-container": "#4a3500",
+                    "surface-container-highest": "#e3e2e5",
+                    "surface-container-low": "#f4f3f6",
+                    "on-tertiary-container": "#cd9a0c",
+                    "surface": "#faf9fc",
+                    "secondary-fixed-dim": "#81d1f0",
+                    "surface-tint": "#436084",
+                    "secondary-container": "#8fdfff",
+                    "surface-variant": "#e3e2e5",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#faf9fc",
+                    "on-secondary-container": "#00647d",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#87a4cc",
+                    "tertiary-fixed": "#ffdfa0",
+                    "surface-dim": "#dad9dd",
+                    "on-secondary-fixed-variant": "#004d62",
+                    "tertiary-fixed-dim": "#f6be39",
+                    "primary-fixed": "#d2e4ff",
+                    "primary": "#1a3a5c",
+                    "primary-container": "#1a3a5c",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-secondary-fixed": "#001f29",
+                    "surface-container-high": "#e9e8eb",
+                    "background": "#f0f4f8",
+                    "on-surface": "#1a1c1e",
+                    "tertiary": "#2f2100",
+                    "outline": "#73777f",
+                    "inverse-surface": "#2f3033",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#eeedf1",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed": "#001c37",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "inverse-on-surface": "#f1f0f3",
+                    "accent-teal": "#0e7490",
+                    "accent-gold": "#d4a017",
+                    "accent-coral": "#e07b54"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "xl": "32px",
+                    "sm": "12px",
+                    "2xl": "48px",
+                    "xs": "8px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "margin": "32px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "headline-lg": ["Poppins"],
+                    "button": ["Inter"],
+                    "display-lg": ["Poppins"],
+                    "headline-sm": ["Poppins"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Poppins"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .kpi-gradient {
+            border-left-width: 4px;
+            border-image: linear-gradient(to bottom, #1a3a5c, #0e7490) 1;
+        }
+        .pulse-green {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-xl">
+<!-- Main Navigation Content (Suppressed shell, but using TopNavBar logic internally for identity) -->
+<header class="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant px-gutter h-16 flex justify-between items-center shadow-sm">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">App Conductores</h1>
+<div class="flex items-center gap-xs bg-emerald-100 text-emerald-800 px-sm py-base rounded-full">
+<span class="w-2 h-2 bg-emerald-500 rounded-full pulse-green"></span>
+<span class="font-label-caps text-label-caps">38 CONECTADOS</span>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs px-md py-sm rounded-lg border-2 border-primary text-primary font-button hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-[18px]">campaign</span>
+                Enviar Notificación Masiva
+            </button>
+<div class="flex gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">settings</span>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-gutter pt-lg flex flex-col gap-lg">
+<!-- KPI Dashboard Section -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<!-- KPI Card 1 -->
+<div class="bg-white p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] kpi-gradient">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs">CONECTADOS AHORA</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">38 <span class="text-body-lg text-on-surface-variant">/ 60</span></h2>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-md">
+<div class="bg-primary h-1.5 rounded-full" style="width: 63%"></div>
+</div>
+</div>
+<!-- KPI Card 2 -->
+<div class="bg-white p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-l-4 border-accent-teal">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs text-accent-teal">EN SERVICIO</p>
+<h2 class="font-headline-lg text-headline-lg text-accent-teal">24</h2>
+<p class="text-body-sm text-on-surface-variant mt-xs">40% de la flota activa</p>
+</div>
+<!-- KPI Card 3 -->
+<div class="bg-white p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-l-4 border-emerald-500">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs text-emerald-600">DISPONIBLES</p>
+<h2 class="font-headline-lg text-headline-lg text-emerald-600">11</h2>
+<p class="text-body-sm text-on-surface-variant mt-xs">Listos para despacho</p>
+</div>
+<!-- KPI Card 4 -->
+<div class="bg-white p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-l-4 border-outline">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs text-outline">SIN CONEXIÓN</p>
+<h2 class="font-headline-lg text-headline-lg text-outline">22</h2>
+<p class="text-body-sm text-error mt-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">history</span>
+                    Reporte: +2 hrs ago
+                </p>
+</div>
+</section>
+<!-- Main Layout: Grid and Sidebar -->
+<div class="flex flex-col lg:flex-row gap-lg">
+<div class="flex-1 flex flex-col gap-lg">
+<!-- Filters & Search -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<nav class="flex gap-xs bg-surface-container p-base rounded-lg">
+<button class="px-md py-sm rounded-md bg-white text-primary font-button shadow-sm">Todos</button>
+<button class="px-md py-sm rounded-md text-on-surface-variant hover:bg-white/50 transition-all font-button">En servicio</button>
+<button class="px-md py-sm rounded-md text-on-surface-variant hover:bg-white/50 transition-all font-button">Disponible</button>
+<button class="px-md py-sm rounded-md text-on-surface-variant hover:bg-white/50 transition-all font-button">En descanso</button>
+<button class="px-md py-sm rounded-md text-on-surface-variant hover:bg-white/50 transition-all font-button">Desconectado</button>
+</nav>
+<div class="relative w-full md:w-80">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-white border border-outline-variant rounded-lg focus:border-accent-teal focus:ring-2 focus:ring-accent-teal/20 transition-all text-body-sm" placeholder="Buscar conductor o placa..." type="text"/>
+</div>
+</div>
+<!-- Driver Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+<!-- Driver Card 1 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant hover:border-accent-teal transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">CA</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Carlos Andrés Santana</h4>
+<p class="text-body-sm text-on-surface-variant">Toyota HiAce • A287451</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-accent-teal/10 text-accent-teal text-[10px] font-bold uppercase rounded tracking-wider">En servicio</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-primary-container uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">navigation</span>
+                                Transfer Actual
+                            </p>
+<p class="text-body-sm mt-xs">Apple Vacations → Barceló Bávaro</p>
+<p class="text-body-sm font-bold text-accent-teal mt-base">ETA: 15:10</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">battery_5_bar</span>
+<span class="text-body-sm">72%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 2 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant hover:border-accent-teal transition-all">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">JR</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Juan Pablo Reyes Méndez</h4>
+<p class="text-body-sm text-on-surface-variant">Hyundai County • A193822</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-accent-teal/10 text-accent-teal text-[10px] font-bold uppercase rounded tracking-wider">En servicio</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-primary-container uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+                                Excursión Isla Saona
+                            </p>
+<p class="text-body-sm mt-xs">28 pax • Regreso 16:30</p>
+<p class="text-body-sm font-bold text-accent-teal mt-base">Regreso en curso</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-accent-gold">battery_3_bar</span>
+<span class="text-body-sm">45%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 3 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant hover:border-emerald-500 transition-all">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">PM</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Pedro Luis Martínez</h4>
+<p class="text-body-sm text-on-surface-variant">Land Cruiser • A341097</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase rounded tracking-wider">Disponible</span>
+</div>
+<div class="bg-emerald-50/50 p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-emerald-800 uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">home_pin</span>
+                                Ubicación
+                            </p>
+<p class="text-body-sm mt-xs">Base PUJ (Aeropuerto Punta Cana)</p>
+<p class="text-body-sm font-bold text-emerald-600 mt-base">Listo para asignación</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">battery_full</span>
+<span class="text-body-sm">88%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 4 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">AV</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Ana María Ventura</h4>
+<p class="text-body-sm text-on-surface-variant">Toyota Corolla • A278904</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-accent-teal/10 text-accent-teal text-[10px] font-bold uppercase rounded tracking-wider">En servicio</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md border-l-4 border-accent-gold">
+<p class="text-[12px] font-semibold text-accent-gold uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+                                VIP Transfer
+                            </p>
+<p class="text-body-sm mt-xs">Transfer privado Cap Cana</p>
+<p class="text-body-sm text-on-surface-variant">2 pax • Protocolo High End</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">battery_full</span>
+<span class="text-body-sm">91%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 5 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-accent-gold/10 flex items-center justify-center text-accent-gold font-bold">MS</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Miguel Ángel de los Santos</h4>
+<p class="text-body-sm text-on-surface-variant">Mitsubishi Rosa • A309156</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-accent-gold/10 text-accent-gold text-[10px] font-bold uppercase rounded tracking-wider">En descanso</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-on-surface-variant uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">bedtime</span>
+                                Descanso Programado
+                            </p>
+<p class="text-body-sm mt-xs">Inicio 13:00 • Fin est. 14:00</p>
+<p class="text-body-sm text-on-surface-variant">Pausa para almuerzo</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-accent-coral">battery_2_bar</span>
+<span class="text-body-sm">34%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-accent-coral">signal_wifi_off</span>
+<span class="text-body-sm font-bold text-accent-coral">GPS Warning</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 6 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">RG</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Rosa Emilia Guzmán</h4>
+<p class="text-body-sm text-on-surface-variant">Kia Carnival • A225671</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase rounded tracking-wider">Disponible</span>
+</div>
+<div class="bg-emerald-50/50 p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-emerald-800 uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">home_pin</span>
+                                Ubicación
+                            </p>
+<p class="text-body-sm mt-xs">Zona Uvero Alto</p>
+<p class="text-body-sm text-on-surface-variant">En espera de salida hotel</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">battery_4_bar</span>
+<span class="text-body-sm">67%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 7 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant border-l-4 border-accent-coral">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">FP</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Francisco Javier Peña</h4>
+<p class="text-body-sm text-on-surface-variant">Mercedes Sprinter • A412388</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-accent-teal/10 text-accent-teal text-[10px] font-bold uppercase rounded tracking-wider">En servicio</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-primary-container uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+                                Transfer Sunwing
+                            </p>
+<p class="text-body-sm mt-xs">Sunwing → Majestic (16 pax)</p>
+<p class="text-body-sm font-bold text-accent-teal mt-base">ETA: 14:45</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-error font-bold">battery_alert</span>
+<span class="text-body-sm text-error font-bold">23%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 8 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant opacity-75">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant font-bold">WB</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Wellington José Báez</h4>
+<p class="text-body-sm text-on-surface-variant">No vehicle</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-surface-container text-on-surface-variant text-[10px] font-bold uppercase rounded tracking-wider">Desconectado</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-on-surface-variant uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                                Estado
+                            </p>
+<p class="text-body-sm mt-xs">Last connect: 10:45</p>
+<p class="text-body-sm italic">Motivo: Vacaciones</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-outline">battery_unknown</span>
+<span class="text-body-sm">?</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-outline">location_off</span>
+<span class="text-body-sm">GPS Offline</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+<!-- Driver Card 9 -->
+<div class="bg-white p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-sm">
+<div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">HU</div>
+<div>
+<h4 class="font-headline-sm text-[16px] text-primary leading-tight">Héctor Manuel Ureña</h4>
+<p class="text-body-sm text-on-surface-variant">Toyota HiAce • A287922</p>
+</div>
+</div>
+<span class="px-xs py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase rounded tracking-wider">Disponible</span>
+</div>
+<div class="bg-emerald-50/50 p-sm rounded-lg mb-md">
+<p class="text-[12px] font-semibold text-emerald-800 uppercase flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">home_pin</span>
+                                Ubicación
+                            </p>
+<p class="text-body-sm mt-xs">Parking Hard Rock</p>
+<p class="text-body-sm text-on-surface-variant">Disponible para pick-up inmediato</p>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant pt-sm">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-accent-gold">battery_4_bar</span>
+<span class="text-body-sm">55%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-emerald-500">location_on</span>
+<span class="text-body-sm">GPS OK</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar Panel: Resumen & Alertas -->
+<aside class="w-full lg:w-80 flex flex-col gap-lg">
+<!-- Resumen del Turno Card -->
+<div class="bg-white p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant">
+<h3 class="font-headline-sm text-[18px] text-primary mb-md border-b border-outline-variant pb-sm">Resumen del Turno</h3>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-on-surface-variant">Completados</span>
+<span class="font-bold text-primary">34</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-on-surface-variant">En progreso</span>
+<span class="font-bold text-accent-teal">12</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-md">
+<span class="text-body-sm text-on-surface-variant">Pendientes</span>
+<span class="font-bold text-accent-gold">8</span>
+</div>
+<div class="pt-sm">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-xs">PRÓXIMO PEAK</p>
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-accent-coral">trending_up</span>
+<span class="font-bold text-primary">16:00 - 18:00</span>
+</div>
+<div class="p-sm bg-accent-coral/10 rounded-lg border border-accent-coral/20">
+<div class="flex justify-between text-body-sm mb-xs">
+<span>Requeridos</span>
+<span class="font-bold">18</span>
+</div>
+<div class="flex justify-between text-body-sm">
+<span>Actuales</span>
+<span class="font-bold text-error">11</span>
+</div>
+<p class="text-[11px] text-error mt-sm font-semibold flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                    Warning: Deficit de 7 conductores
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Alertas de App Card -->
+<div class="bg-primary p-lg rounded-xl shadow-lg text-white">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-accent-gold">notification_important</span>
+<h3 class="font-headline-sm text-[18px]">Alertas de App</h3>
+</div>
+<div class="space-y-md">
+<!-- Alerta 1 -->
+<div class="bg-white/10 p-sm rounded-lg border border-white/10 hover:bg-white/20 transition-all cursor-pointer">
+<p class="text-[12px] font-bold text-accent-gold mb-base flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">battery_alert</span>
+                                Batería Crítica
+                            </p>
+<p class="text-body-sm">Fco. Javier Peña (23%)</p>
+<p class="text-[10px] opacity-70 mt-xs">Asignar punto de carga en Majestic</p>
+</div>
+<!-- Alerta 2 -->
+<div class="bg-white/10 p-sm rounded-lg border border-white/10 hover:bg-white/20 transition-all cursor-pointer">
+<p class="text-[12px] font-bold text-accent-coral mb-base flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">gps_off</span>
+                                Inestabilidad GPS
+                            </p>
+<p class="text-body-sm">Miguel Ángel de los Santos</p>
+<p class="text-[10px] opacity-70 mt-xs">Última señal hace 4 minutos</p>
+</div>
+<!-- Alerta 3 -->
+<div class="bg-white/10 p-sm rounded-lg border border-white/10 hover:bg-white/20 transition-all cursor-pointer">
+<p class="text-[12px] font-bold text-accent-gold mb-base flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">group_add</span>
+                                Demanda Alta
+                            </p>
+<p class="text-body-sm">Pico 16:00 (Falta Personal)</p>
+<p class="text-[10px] opacity-70 mt-xs">7 conductores adicionales necesarios</p>
+</div>
+</div>
+<button class="w-full mt-lg py-sm bg-accent-teal text-white font-button rounded-lg hover:bg-secondary transition-all">
+                        Resolver Alertas
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="mt-2xl px-gutter border-t border-outline-variant pt-lg flex flex-col md:flex-row justify-between items-center text-on-surface-variant gap-md">
+<div class="flex items-center gap-md">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary">CaribeTrans</span>
+<span class="text-body-sm">© 2024 Logistics Console - Dominican Coast Sector</span>
+</div>
+<div class="flex gap-lg">
+<a class="text-body-sm hover:text-primary transition-colors" href="#">Soporte Técnico</a>
+<a class="text-body-sm hover:text-primary transition-colors" href="#">Políticas de Conducción</a>
+<a class="text-body-sm hover:text-primary transition-colors" href="#">Reportar Incidencia</a>
+</div>
+</footer>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button, .cursor-pointer').forEach(el => {
+            el.addEventListener('mousedown', () => el.style.opacity = '0.8');
+            el.addEventListener('mouseup', () => el.style.opacity = '1');
+            el.addEventListener('mouseleave', () => el.style.opacity = '1');
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.02]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.02]');
+        });
+    </script>
+</body></html>

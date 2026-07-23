@@ -359,6 +359,11 @@ canvas { max-width: 100%; }
 .section { display: none; }
 .section.active { display: block; }
 
+/* Módulos externos en iframe — a sangre completa (cancela el padding de .content) */
+#section-iframe { margin: -28px; height: calc(100vh - var(--topbar-h)); }
+#section-iframe.active { display: block; }
+#module-frame { display: block; width: 100%; height: 100%; border: 0; background: var(--bg); }
+
 .section-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; gap: 20px; flex-wrap: wrap; }
 .section-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: var(--text-main); }
 .section-sub { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
@@ -870,5 +875,6 @@ canvas { max-width: 100%; }
 @media (max-width: 560px) {
   .kpi-grid { grid-template-columns: 1fr; }
   .content { padding: 16px; }
+  #section-iframe { margin: -16px; }
   .topbar-user .u-name, .topbar-user .u-role { display: none; }
 }

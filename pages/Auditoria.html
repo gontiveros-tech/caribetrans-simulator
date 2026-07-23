@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Azure Horizon | Auditoría y Trazabilidad</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#faf9fc",
+                    "on-surface": "#1a1c1e",
+                    "on-primary-container": "#87a4cc",
+                    "inverse-surface": "#2f3033",
+                    "on-error-container": "#93000a",
+                    "background": "#faf9fc",
+                    "surface-bright": "#faf9fc",
+                    "primary": "#002444",
+                    "on-tertiary-container": "#cd9a0c",
+                    "on-primary-fixed-variant": "#2a486b",
+                    "tertiary": "#2f2100",
+                    "on-surface-variant": "#43474e",
+                    "surface-dim": "#dad9dd",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-background": "#1a1c1e",
+                    "secondary-container": "#8fdfff",
+                    "primary-fixed-dim": "#abc9f2",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "secondary": "#006781",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f6",
+                    "surface-container": "#eeedf1",
+                    "surface-tint": "#436084",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#81d1f0",
+                    "inverse-primary": "#abc9f2",
+                    "primary-container": "#1a3a5c",
+                    "inverse-on-surface": "#f1f0f3",
+                    "surface-variant": "#e3e2e5",
+                    "secondary-fixed": "#b9eaff",
+                    "tertiary-fixed": "#ffdfa0",
+                    "on-secondary-fixed-variant": "#004d62",
+                    "outline-variant": "#c3c6cf",
+                    "on-secondary-fixed": "#001f29",
+                    "primary-fixed": "#d2e4ff",
+                    "outline": "#73777f",
+                    "on-secondary-container": "#00647d",
+                    "on-primary-fixed": "#001c37",
+                    "tertiary-fixed-dim": "#f6be39",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e9e8eb",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#4a3500",
+                    "surface-container-highest": "#e3e2e5",
+                    "on-primary": "#ffffff",
+                    "brand-navy": "#1a3a5c",
+                    "brand-teal": "#0e7490",
+                    "brand-gold": "#d4a017",
+                    "brand-coral": "#e07b54",
+                    "page-bg": "#f0f4f8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "xs": "8px",
+                    "base": "4px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "margin": "32px",
+                    "xl": "32px",
+                    "2xl": "48px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Poppins", "sans-serif"],
+                    "headline-md": ["Poppins", "sans-serif"],
+                    "headline-lg": ["Poppins", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "body-sm": ["Inter", "sans-serif"],
+                    "label-caps": ["Inter", "sans-serif"],
+                    "button": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        background-color: #f0f4f8;
+        font-family: 'Inter', sans-serif;
+        color: #1a1c1e;
+      }
+      .card-shadow {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      }
+      .kpi-border {
+        border-left: 4px solid;
+        border-image: linear-gradient(to bottom, #1a3a5c, #0e7490) 1;
+      }
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      .primary-gradient {
+        background: linear-gradient(135deg, #1a3a5c 0%, #2a486b 100%);
+      }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-sm glass-nav card-shadow">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">Azure Horizon</span>
+<nav class="hidden md:flex gap-lg ml-xl">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Operations</a>
+<a class="font-body-md text-body-md text-secondary border-b-2 border-secondary pb-1" href="#">Audit</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-xl pr-md py-xs bg-surface-container rounded-lg border-none focus:ring-2 focus:ring-brand-teal w-64 text-body-sm font-body-sm" placeholder="Buscar registros..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all p-base rounded-full hover:bg-surface-variant">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all p-base rounded-full hover:bg-surface-variant">settings</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female logistics director, mid-40s, with a friendly yet authoritative expression. She is wearing a professional navy blue suit jacket. The background is a brightly lit, clean modern office with glass partitions and soft tropical daylight, following the Caribbean professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Z_OOosa3Q8dzXroDSW-cgpt9Tq398xLbDIKZanbNDe74n3e3zvV7WiKK502nAATi4anNCdUwcl5KJ-6V4ALytYlWKMmYkFXYclF0qkUvomrtnuuPNxnl3_lEHQ111Yf_fYuhCT98ztt-fiXVz1OUqn4nSmocYhC3DioYLbPZKzYb5fpE1cX0hJZ10XqL6Mb5QQexawnR0t2_OH4y5r_w9V124rZld9WqVxsxgTLGaSce1HzJCq14rQ"/>
+</div>
+</div>
+</header>
+<!-- Sidebar & Layout Wrapper -->
+<div class="flex pt-24 min-h-screen">
+<!-- Main Content Area -->
+<main class="flex-1 px-gutter pb-2xl max-w-[1440px] mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
+<div>
+<div class="flex items-center gap-sm mb-xs">
+<h1 class="font-headline-lg text-headline-lg text-brand-navy">Auditoría</h1>
+<span class="px-md py-1 bg-brand-navy text-white font-label-caps text-label-caps rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                            CADENA INMUTABLE
+                        </span>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Monitoreo de trazabilidad y eventos de sistema en tiempo real.</p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<select class="bg-white border-outline-variant rounded-lg font-body-sm text-body-sm px-md py-sm focus:ring-brand-teal focus:border-brand-teal">
+<option>Todos los Módulos</option>
+<option>Facturación</option>
+<option>Despacho</option>
+<option>Nómina</option>
+</select>
+<select class="bg-white border-outline-variant rounded-lg font-body-sm text-body-sm px-md py-sm focus:ring-brand-teal focus:border-brand-teal">
+<option>Todos los Usuarios</option>
+<option>Ángela Soto</option>
+<option>Ramón Peña</option>
+</select>
+<div class="flex items-center bg-white border border-outline-variant rounded-lg px-md py-sm gap-sm">
+<span class="material-symbols-outlined text-outline text-[18px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">Jul 01, 2026 - Jul 15, 2026</span>
+</div>
+</div>
+</div>
+<!-- KPI Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg mb-2xl">
+<!-- KPI 1 -->
+<div class="bg-white p-lg rounded-xl card-shadow kpi-border flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-base uppercase tracking-wider font-semibold">Eventos Hoy</p>
+<p class="font-headline-lg text-headline-lg text-brand-navy">247</p>
+</div>
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white p-lg rounded-xl card-shadow kpi-border flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-base uppercase tracking-wider font-semibold">Esta Semana</p>
+<p class="font-headline-lg text-headline-lg text-brand-navy">1,834</p>
+</div>
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white p-lg rounded-xl card-shadow kpi-border flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-base uppercase tracking-wider font-semibold">Usuarios Activos</p>
+<p class="font-headline-lg text-headline-lg text-brand-navy">14</p>
+</div>
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">group</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-white p-lg rounded-xl card-shadow kpi-border flex items-center justify-between">
+<div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-base uppercase tracking-wider font-semibold">Integridad</p>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[#059669]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="font-headline-sm text-headline-sm text-[#059669]">Verificada</p>
+</div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-[#d1fae5] flex items-center justify-center text-[#059669]">
+<span class="material-symbols-outlined">lock</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-2xl">
+<!-- Vertical Timeline Section -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-headline-md text-headline-md text-brand-navy">Registro de Actividad</h2>
+<button class="flex items-center gap-xs text-brand-teal font-button text-button hover:underline">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Exportar Logs
+                        </button>
+</div>
+<div class="space-y-sm">
+<!-- Timeline Items -->
+<!-- Item 1 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant overflow-hidden group hover:border-brand-teal transition-colors">
+<div class="p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">14:32:18</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">AS</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Ángela Soto</span>
+<span class="text-on-surface-variant mx-1">aprobó</span>
+<span class="font-semibold">Nómina 1ra Quincena Jul 2026</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-navy text-white font-label-caps text-label-caps rounded-full">NÓMINA</span>
+<button class="material-symbols-outlined text-outline group-hover:text-brand-navy">expand_more</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">14:28:05</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">YC</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Yolanda Castillo</span>
+<span class="text-on-surface-variant mx-1">asignó</span>
+<span class="font-semibold">Vehículo A287451 a Servicio #2034</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-gold text-white font-label-caps text-label-caps rounded-full">DESPACHO</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 3 - System -->
+<div class="bg-surface-container rounded-xl border border-dashed border-outline p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">14:15:42</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-brand-teal shrink-0 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">robot_2</span>
+</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Sistema</span>
+<span class="text-on-surface-variant mx-1">verificó</span>
+<span class="font-body-sm text-body-sm font-mono bg-white px-xs rounded">Integridad cadena auditoría (hash #a7f2c9)</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-on-surface text-white font-label-caps text-label-caps rounded-full">AUDITORÍA</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">13:58:11</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">RP</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Ramón Peña</span>
+<span class="text-on-surface-variant mx-1">creó</span>
+<span class="font-semibold">Factura B0100000344 para Palladium</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-navy text-white font-label-caps text-label-caps rounded-full">FACTURACIÓN</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">13:45:30</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">FR</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Franchesca Rosario</span>
+<span class="text-on-surface-variant mx-1">modificó</span>
+<span class="font-semibold text-brand-coral">Salario base Diógenes Mejía DOP $52,000 → $55,000</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-coral text-white font-label-caps text-label-caps rounded-full">RRHH</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">13:22:07</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">CS</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Carlos Santana</span>
+<span class="text-on-surface-variant mx-1">reportó</span>
+<span class="font-semibold italic">Incidente vehículo A193822 (neumático reventado)</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-teal text-white font-label-caps text-label-caps rounded-full">FLOTA</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 7 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">12:50:19</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-secondary-container shrink-0 flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]">scanner</span>
+</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Sistema OCR</span>
+<span class="text-on-surface-variant mx-1">procesó</span>
+<span class="font-semibold">Factura Isla Petroleum (Tier 0, confianza 98.2%)</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-teal text-white font-label-caps text-label-caps rounded-full">OCR</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 8 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">12:34:55</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">YC</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Yolanda Castillo</span>
+<span class="text-on-surface-variant mx-1">reasignó</span>
+<span class="font-semibold">Conductor Wellington Báez → Juan Pablo Reyes</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-gold text-white font-label-caps text-label-caps rounded-full">DESPACHO</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 9 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">11:18:03</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">AS</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Ángela Soto</span>
+<span class="text-on-surface-variant mx-1">generó</span>
+<span class="font-semibold">Formato 606 Junio 2026 (187 registros)</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-navy text-white font-label-caps text-label-caps rounded-full">CONTABILIDAD</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+<!-- Item 10 -->
+<div class="bg-white rounded-xl card-shadow border border-outline-variant p-md flex items-center gap-md">
+<div class="text-on-surface-variant font-body-sm text-body-sm w-20 shrink-0">10:45:22</div>
+<div class="flex items-center gap-sm flex-1 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-variant shrink-0 flex items-center justify-center text-xs font-bold text-primary border border-outline-variant">RP</div>
+<p class="font-body-md text-body-md truncate">
+<span class="font-semibold text-brand-navy">Ramón Peña</span>
+<span class="text-on-surface-variant mx-1">autenticó</span>
+<span class="font-semibold text-green-600">Login exitoso (IP 192.168.1.45, 2FA)</span>
+</p>
+</div>
+<div class="hidden sm:flex items-center gap-md">
+<span class="px-md py-1 bg-brand-navy text-white font-label-caps text-label-caps rounded-full">SEGURIDAD</span>
+<button class="material-symbols-outlined text-outline">expand_more</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-lg flex items-center justify-center gap-md">
+<button class="w-10 h-10 rounded-full flex items-center justify-center border border-outline-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="font-body-sm text-body-sm font-semibold">Página 1 de 24</span>
+<button class="w-10 h-10 rounded-full flex items-center justify-center border border-outline-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Sidebar Analysis Section -->
+<aside class="w-full lg:w-80 shrink-0">
+<div class="bg-white p-lg rounded-xl card-shadow border border-outline-variant sticky top-24">
+<h3 class="font-headline-sm text-headline-sm text-brand-navy mb-lg">Resumen por Módulo Hoy</h3>
+<div class="space-y-md">
+<!-- Despacho -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">Despacho</span>
+<span class="font-body-sm text-body-sm text-brand-navy">87</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-gold h-full rounded-full" style="width: 87%"></div>
+</div>
+</div>
+<!-- Facturación -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">Facturación</span>
+<span class="font-body-sm text-body-sm text-brand-navy">54</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-navy h-full rounded-full" style="width: 54%"></div>
+</div>
+</div>
+<!-- RRHH -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">RRHH</span>
+<span class="font-body-sm text-body-sm text-brand-navy">42</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-coral h-full rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<!-- Flota -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">Flota</span>
+<span class="font-body-sm text-body-sm text-brand-navy">31</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-teal h-full rounded-full" style="width: 31%"></div>
+</div>
+</div>
+<!-- OCR -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">OCR</span>
+<span class="font-body-sm text-body-sm text-brand-navy">18</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-teal h-full rounded-full opacity-60" style="width: 18%"></div>
+</div>
+</div>
+<!-- Contabilidad -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">Contabilidad</span>
+<span class="font-body-sm text-body-sm text-brand-navy">12</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-navy h-full rounded-full opacity-60" style="width: 12%"></div>
+</div>
+</div>
+<!-- Seguridad -->
+<div>
+<div class="flex justify-between items-end mb-xs">
+<span class="font-body-sm text-body-sm font-semibold">Seguridad</span>
+<span class="font-body-sm text-body-sm text-brand-navy">3</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-brand-navy h-full rounded-full opacity-30" style="width: 3%"></div>
+</div>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline-variant">
+<button class="w-full py-md rounded-lg primary-gradient text-white font-button text-button shadow-md active:scale-95 transition-transform">
+                                Generar Reporte Completo
+                            </button>
+<p class="mt-md text-center text-outline font-body-sm text-[12px]">
+                                Última sincronización: Hace 45s
+                            </p>
+</div>
+</div>
+<!-- Additional Context Card -->
+<div class="mt-lg bg-primary-container p-lg rounded-xl text-white relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-headline-sm text-headline-sm mb-xs">Seguridad del Sistema</h4>
+<p class="font-body-sm text-body-sm opacity-90 mb-md">Todos los eventos son firmados criptográficamente y almacenados en un ledger distribuido para garantizar la inmutabilidad.</p>
+<a class="inline-flex items-center gap-xs font-button text-button text-secondary-fixed" href="#">
+                                Ver certificados
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-white/10 text-[120px]">shield</span>
+</div>
+</aside>
+</div>
+</main>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+        // Simple hover effect for timeline cards
+        const timelineItems = document.querySelectorAll('.group');
+        timelineItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.classList.add('scale-[1.01]');
+            });
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Initialize any specific UI logic
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Azure Horizon Audit Console Initialized");
+        });
+    </script>
+</body></html>

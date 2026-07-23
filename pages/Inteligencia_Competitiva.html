@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CaribeTrans | Inteligencia Competitiva</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1a3a5c",
+                        "surface-container": "#eeedf1",
+                        "on-surface-variant": "#43474e",
+                        "on-primary-fixed": "#001c37",
+                        "inverse-on-surface": "#f1f0f3",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "primary-fixed-dim": "#abc9f2",
+                        "tertiary-fixed-dim": "#f6be39",
+                        "primary-fixed": "#d2e4ff",
+                        "primary": "#002444",
+                        "on-tertiary-fixed": "#261a00",
+                        "inverse-primary": "#abc9f2",
+                        "outline-variant": "#c3c6cf",
+                        "on-secondary-fixed": "#001f29",
+                        "tertiary": "#2f2100",
+                        "outline": "#73777f",
+                        "inverse-surface": "#2f3033",
+                        "on-surface": "#1a1c1e",
+                        "surface-container-high": "#e9e8eb",
+                        "background": "#faf9fc",
+                        "surface-bright": "#faf9fc",
+                        "on-secondary-container": "#00647d",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1c1e",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#87a4cc",
+                        "surface-dim": "#dad9dd",
+                        "on-secondary-fixed-variant": "#004d62",
+                        "tertiary-fixed": "#ffdfa0",
+                        "secondary": "#006781",
+                        "on-primary-fixed-variant": "#2a486b",
+                        "surface-container-low": "#f4f3f6",
+                        "on-tertiary-container": "#cd9a0c",
+                        "tertiary-container": "#4a3500",
+                        "surface-container-highest": "#e3e2e5",
+                        "secondary-fixed": "#b9eaff",
+                        "surface": "#faf9fc",
+                        "secondary-fixed-dim": "#81d1f0",
+                        "surface-variant": "#e3e2e5",
+                        "surface-tint": "#436084",
+                        "secondary-container": "#8fdfff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "xl": "32px",
+                        "sm": "12px",
+                        "2xl": "48px",
+                        "xs": "8px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "margin": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Poppins"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Poppins"],
+                        "button": ["Inter"],
+                        "headline-md": ["Poppins"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Poppins"],
+                        "headline-lg-mobile": ["Poppins"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #f0f4f8; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border: 1px solid #e2e8f0; }
+        .kpi-gradient { border-left-width: 4px; border-left-style: solid; border-image: linear-gradient(to bottom, #1a3a5c, #0e7490) 1; }
+        .pulse-teal { animation: pulse-teal 2s infinite; }
+        @keyframes pulse-teal {
+            0% { box-shadow: 0 0 0 0 rgba(14, 116, 144, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(14, 116, 144, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(14, 116, 144, 0); }
+        }
+        .radar-grid { background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px); background-size: 20px 20px; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased p-margin">
+<div class="max-w-[1440px] mx-auto space-y-lg">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+<div class="space-y-base">
+<h1 class="font-headline-lg text-headline-lg text-primary">Inteligencia Competitiva</h1>
+<div class="flex flex-wrap gap-sm items-center">
+<span class="inline-flex items-center gap-xs px-sm py-1 bg-secondary-container text-on-secondary-container rounded-full text-label-caps pulse-teal">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+                        Monitoreo Activo
+                    </span>
+<span class="inline-flex items-center gap-xs px-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-label-caps">
+<span class="material-symbols-outlined text-[12px]">analytics</span>
+                        Triangulado con FODA
+                    </span>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary transition-colors px-lg py-sm rounded-lg font-button flex items-center gap-sm shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                Generar Battlecard PDF
+            </button>
+</header>
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<!-- Market Position -->
+<div class="glass-card p-lg rounded-xl shadow-sm kpi-gradient flex flex-col justify-between h-32">
+<span class="text-on-surface-variant font-label-caps">Posición de Mercado</span>
+<div class="flex items-end justify-between">
+<span class="text-headline-md font-headline-md text-primary">#2 <span class="text-body-sm font-normal text-outline">de 8</span></span>
+<div class="relative w-16 h-8 overflow-hidden">
+<div class="absolute top-0 left-0 w-16 h-16 border-8 border-outline-variant rounded-full"></div>
+<div class="absolute top-0 left-0 w-16 h-16 border-8 border-secondary rounded-full" style="clip-path: inset(0 0 50% 0); transform: rotate(110deg);"></div>
+</div>
+</div>
+</div>
+<!-- Competitive Advantage -->
+<div class="glass-card p-lg rounded-xl shadow-sm kpi-gradient flex flex-col justify-between h-32">
+<span class="text-on-surface-variant font-label-caps">Ventaja Competitiva</span>
+<div class="space-y-1">
+<span class="text-body-lg font-headline-sm text-secondary block">Puntualidad</span>
+<span class="text-body-sm text-on-secondary-container font-semibold">+9.2% <span class="text-outline font-normal">vs mercado</span></span>
+</div>
+</div>
+<!-- Vulnerability -->
+<div class="glass-card p-lg rounded-xl shadow-sm kpi-gradient flex flex-col justify-between h-32" style="border-left-color: #d4a017;">
+<span class="text-on-surface-variant font-label-caps">Vulnerabilidad</span>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary-container">warning</span>
+<span class="text-body-md font-medium text-tertiary-container leading-tight">Concentración de clientes</span>
+</div>
+</div>
+<!-- Opportunities -->
+<div class="glass-card p-lg rounded-xl shadow-sm kpi-gradient flex flex-col justify-between h-32" style="border-left-color: #d4a017;">
+<span class="text-on-surface-variant font-label-caps">Oportunidades</span>
+<div class="space-y-1">
+<span class="text-body-lg font-headline-sm text-tertiary block">3 Activas</span>
+<span class="text-body-sm text-on-tertiary-container font-semibold">DOP $1.8M <span class="text-outline font-normal">potencial</span></span>
+</div>
+</div>
+</div>
+<!-- Central Analysis Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Radar Comparativo -->
+<div class="lg:col-span-2 glass-card p-lg rounded-xl shadow-sm flex flex-col gap-lg">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-primary">Radar Comparativo de Desempeño</h2>
+<div class="flex gap-md text-xs font-medium">
+<span class="flex items-center gap-1"><span class="w-3 h-1 bg-primary"></span> CaribeTrans</span>
+<span class="flex items-center gap-1"><span class="w-3 h-1 border-b border-dashed border-outline"></span> TransPunta</span>
+<span class="flex items-center gap-1"><span class="w-3 h-1 border-b border-dashed border-tertiary-container"></span> Premium</span>
+</div>
+</div>
+<div class="flex-1 min-h-[400px] flex items-center justify-center relative radar-grid rounded-lg border border-outline-variant/20">
+<!-- Placeholder for Radar Chart Visual Logic -->
+<div class="w-80 h-80 relative">
+<!-- Six Axes -->
+<div class="absolute inset-0 border border-outline-variant/30 rounded-full scale-100"></div>
+<div class="absolute inset-0 border border-outline-variant/30 rounded-full scale-75"></div>
+<div class="absolute inset-0 border border-outline-variant/30 rounded-full scale-50"></div>
+<div class="absolute inset-0 border border-outline-variant/30 rounded-full scale-25"></div>
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 text-xs font-bold text-outline uppercase">Puntualidad</div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-6 text-xs font-bold text-outline uppercase">Precio</div>
+<div class="absolute top-1/4 left-0 -translate-x-12 text-xs font-bold text-outline uppercase">Reputación</div>
+<div class="absolute top-1/4 right-0 translate-x-12 text-xs font-bold text-outline uppercase">Flota</div>
+<div class="absolute bottom-1/4 left-0 -translate-x-12 text-xs font-bold text-outline uppercase">Cobertura</div>
+<div class="absolute bottom-1/4 right-0 translate-x-12 text-xs font-bold text-outline uppercase">Tecnología</div>
+<!-- Data Polygon: CaribeTrans (Navy) -->
+<svg class="absolute inset-0 overflow-visible" viewbox="0 0 100 100">
+<polygon fill="rgba(26, 58, 92, 0.2)" points="50,5 95,25 90,75 50,95 10,75 5,25" stroke="#1a3a5c" stroke-width="2"></polygon>
+<!-- Competition Line 1 -->
+<polygon fill="none" points="50,20 70,35 75,65 50,80 25,65 30,35" stroke="#73777f" stroke-dasharray="4 2" stroke-width="1.5"></polygon>
+<!-- Competition Line 2 -->
+<polygon fill="none" points="50,15 85,30 65,70 50,75 35,70 15,30" stroke="#d4a017" stroke-dasharray="2 2" stroke-width="1.5"></polygon>
+</svg>
+</div>
+</div>
+</div>
+<!-- Market Alerts Timeline -->
+<div class="glass-card p-lg rounded-xl shadow-sm space-y-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Alertas de Mercado</h2>
+<div class="space-y-lg relative before:absolute before:left-3 before:top-2 before:bottom-0 before:w-px before:bg-outline-variant">
+<!-- Alert Red -->
+<div class="relative pl-lg">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-error flex items-center justify-center text-white z-10">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-error uppercase">Crítico</span>
+<span class="text-xs text-outline">Hace 2h</span>
+</div>
+<p class="text-body-sm font-semibold text-on-surface">Cambio de Tarifas Aggressive</p>
+<p class="text-xs text-on-surface-variant">TransPunta Express redujo 15% en traslados privados desde PUJ.</p>
+</div>
+</div>
+<!-- Alert Gold -->
+<div class="relative pl-lg">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-tertiary flex items-center justify-center text-white z-10">
+<span class="material-symbols-outlined text-sm">notifications</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-tertiary uppercase">Oportunidad</span>
+<span class="text-xs text-outline">Ayer</span>
+</div>
+<p class="text-body-sm font-semibold text-on-surface">RFP Apple Vacations</p>
+<p class="text-xs text-on-surface-variant">Licitación abierta para flota premium. Requisito: WiFi a bordo.</p>
+</div>
+</div>
+<!-- Alert Blue -->
+<div class="relative pl-lg">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary flex items-center justify-center text-white z-10">
+<span class="material-symbols-outlined text-sm">info</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-secondary uppercase">Informativo</span>
+<span class="text-xs text-outline">Lun 12</span>
+</div>
+<p class="text-body-sm font-semibold text-on-surface">Adquisición Competencia</p>
+<p class="text-xs text-on-surface-variant">Bavaro Transfers adquirió 10 unidades Sprinter 2024.</p>
+</div>
+</div>
+</div>
+<button class="w-full py-sm text-body-sm font-button text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">Ver historial completo</button>
+</div>
+</div>
+<!-- Positioning Map & Sentiment -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Positioning Map -->
+<div class="glass-card p-lg rounded-xl shadow-sm space-y-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-primary">Mapa de Posicionamiento</h2>
+<span class="text-xs text-outline">Precio vs Calidad (Google Rating)</span>
+</div>
+<div class="relative aspect-video bg-surface-container-low rounded-lg p-lg border border-outline-variant/30 overflow-hidden">
+<!-- Zones -->
+<div class="absolute top-0 right-0 w-1/2 h-1/2 bg-secondary/5 border-l border-b border-secondary/20 flex items-start justify-end p-2">
+<span class="text-[10px] font-bold text-secondary uppercase">Zona Óptima</span>
+</div>
+<div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-error/5 border-r border-t border-error/20 flex items-end justify-start p-2">
+<span class="text-[10px] font-bold text-error uppercase">Zona de Riesgo</span>
+</div>
+<!-- Axis Labels -->
+<div class="absolute left-2 top-1/2 -rotate-90 origin-left text-[10px] font-bold text-outline uppercase tracking-widest">Calidad (Rating)</div>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-outline uppercase tracking-widest">Precio (USD/Pax)</div>
+<!-- Bubbles -->
+<!-- CaribeTrans -->
+<div class="absolute top-[20%] right-[30%] w-10 h-10 bg-primary rounded-full flex items-center justify-center text-[10px] text-white font-bold shadow-lg ring-4 ring-primary/20">CT</div>
+<!-- TransPunta -->
+<div class="absolute top-[40%] right-[15%] w-14 h-14 bg-outline rounded-full flex items-center justify-center text-[10px] text-white font-bold opacity-80">TP</div>
+<!-- Bavaro -->
+<div class="absolute top-[65%] left-[20%] w-8 h-8 bg-outline-variant rounded-full flex items-center justify-center text-[10px] text-white font-bold opacity-80">BT</div>
+<!-- Premium -->
+<div class="absolute top-[15%] right-[10%] w-6 h-6 bg-tertiary rounded-full flex items-center justify-center text-[10px] text-white font-bold opacity-80">PS</div>
+</div>
+</div>
+<!-- Sentiment Analysis -->
+<div class="glass-card p-lg rounded-xl shadow-sm space-y-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Análisis de Sentimiento Visual</h2>
+<div class="space-y-lg pt-md">
+<div class="space-y-sm">
+<div class="flex justify-between text-xs font-bold uppercase text-outline">
+<span>Puntualidad</span>
+<span class="text-secondary">CaribeTrans vs Competencia</span>
+</div>
+<div class="h-3 flex rounded-full overflow-hidden bg-surface-container-high">
+<div class="bg-primary w-[85%]" title="Nosotros"></div>
+<div class="bg-outline-variant w-[15%]" title="Competencia"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-xs font-bold uppercase text-outline">
+<span>Estado de Vehículos</span>
+<span class="text-secondary">CaribeTrans vs Competencia</span>
+</div>
+<div class="h-3 flex rounded-full overflow-hidden bg-surface-container-high">
+<div class="bg-primary w-[70%]" title="Nosotros"></div>
+<div class="bg-outline-variant w-[30%]" title="Competencia"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-xs font-bold uppercase text-outline">
+<span>Atención de Conductores</span>
+<span class="text-secondary">CaribeTrans vs Competencia</span>
+</div>
+<div class="h-3 flex rounded-full overflow-hidden bg-surface-container-high">
+<div class="bg-primary w-[92%]" title="Nosotros"></div>
+<div class="bg-outline-variant w-[8%]" title="Competencia"></div>
+</div>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-outline-variant/30 flex gap-md items-start">
+<span class="material-symbols-outlined text-secondary">insights</span>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+<span class="font-bold text-on-surface">Insight del Mes:</span> La competencia está perdiendo puntos en "Conductores" por barreras idiomáticas. Nuestra capacitación en inglés es el diferenciador clave reportado en el 40% de las menciones positivas.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Battlecards -->
+<div class="space-y-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Battlecards Estratégicas</h2>
+<div class="grid grid-cols-1 gap-md">
+<!-- Battlecard 1 -->
+<div class="glass-card rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row hover:border-primary/30 transition-colors">
+<div class="p-lg md:w-1/4 bg-surface-container-low border-r border-outline-variant/30 space-y-md">
+<div class="flex items-center justify-between">
+<span class="text-headline-sm font-headline-sm text-primary">TransPunta Express</span>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+</div>
+<div class="space-y-xs">
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest">Fortaleza Principal</span>
+<p class="text-body-sm font-medium">Precios Low-Cost masivos</p>
+</div>
+<div class="space-y-xs">
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest">Debilidad</span>
+<p class="text-body-sm font-medium text-error">Vehículos antiguos (&gt;5 años)</p>
+</div>
+</div>
+<div class="p-lg flex-1 grid grid-cols-1 md:grid-cols-2 gap-lg bg-white">
+<div class="space-y-md">
+<div class="space-y-xs">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Nuestra Ventaja (CaribeTrans)</span>
+<p class="text-body-sm">Flota Premium 2024 con tecnología de tracking en tiempo real.</p>
+</div>
+<div class="space-y-xs">
+<span class="text-[10px] font-bold text-on-surface uppercase tracking-widest">Estrategia TOWS (Cruce)</span>
+<p class="text-body-sm italic">"Explotar su falta de modernidad en el segmento corporativo resaltando nuestra seguridad certificada."</p>
+</div>
+</div>
+<div class="flex flex-col justify-end items-end gap-md">
+<button class="bg-secondary text-on-secondary px-lg py-sm rounded-lg font-button flex items-center gap-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_task</span>
+                                Crear tarea
+                            </button>
+</div>
+</div>
+</div>
+<!-- Battlecard 2 (Simplified) -->
+<div class="glass-card rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row hover:border-primary/30 transition-colors opacity-90">
+<div class="p-lg md:w-1/4 bg-surface-container-low border-r border-outline-variant/30 space-y-md">
+<span class="text-headline-sm font-headline-sm text-primary">Bavaro Transfers</span>
+<div class="space-y-xs">
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest">Fortaleza</span>
+<p class="text-body-sm font-medium">Gran volumen hotelero</p>
+</div>
+</div>
+<div class="p-lg flex-1 bg-white flex items-center justify-between">
+<p class="text-body-sm max-w-xl text-on-surface-variant">Su reciente inversión en flota está afectando su margen operativo. Momento ideal para captar hoteles boutique con propuestas de mayor personalización.</p>
+<button class="border border-secondary text-secondary px-lg py-sm rounded-lg font-button hover:bg-secondary/5 transition-transform active:scale-95">Crear tarea</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Lower Dashboard Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Oportunidades de Captura -->
+<div class="lg:col-span-2 space-y-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Oportunidades de Captura (Debilidades Competencia)</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Opt 1 -->
+<div class="glass-card p-md rounded-xl shadow-sm border-l-4 border-secondary flex flex-col gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-lg">track_changes</span>
+</div>
+<p class="text-xs font-bold text-on-surface leading-tight">Clientes Caribe Fun Insatisfechos</p>
+<p class="text-[11px] text-on-surface-variant leading-snug">Críticas recurrentes por retrasos en Excursión Saona. Nuestra logística 100% puntual es el anzuelo.</p>
+<div class="mt-auto pt-sm flex justify-between items-center border-t border-outline-variant/20">
+<span class="text-[10px] font-bold text-secondary uppercase">DOP $450k/mes</span>
+</div>
+</div>
+<!-- Opt 2 -->
+<div class="glass-card p-md rounded-xl shadow-sm border-l-4 border-secondary flex flex-col gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-lg">track_changes</span>
+</div>
+<p class="text-xs font-bold text-on-surface leading-tight">Gap Tecnológico Premium</p>
+<p class="text-[11px] text-on-surface-variant leading-snug">Premium Shuttle no ofrece reserva vía App. Implementar campaña "Reserva en 1 Click".</p>
+<div class="mt-auto pt-sm flex justify-between items-center border-t border-outline-variant/20">
+<span class="text-[10px] font-bold text-secondary uppercase">DOP $320k/mes</span>
+</div>
+</div>
+<!-- Opt 3 -->
+<div class="glass-card p-md rounded-xl shadow-sm border-l-4 border-secondary flex flex-col gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-lg">track_changes</span>
+</div>
+<p class="text-xs font-bold text-on-surface leading-tight">Abandono de Zona Norte</p>
+<p class="text-[11px] text-on-surface-variant leading-snug">TransPunta retiró flota de Puerto Plata. Oportunidad de monopolizar transfers VIP.</p>
+<div class="mt-auto pt-sm flex justify-between items-center border-t border-outline-variant/20">
+<span class="text-[10px] font-bold text-secondary uppercase">DOP $900k/mes</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Indicadores Macro -->
+<div class="glass-card p-lg rounded-xl shadow-sm space-y-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Indicadores Macro</h2>
+<div class="space-y-lg">
+<!-- Gauge 1 -->
+<div class="flex items-center justify-between">
+<div class="space-y-1">
+<p class="text-xs font-medium text-outline">Tipo de Cambio USD/DOP</p>
+<p class="text-body-md font-bold text-on-surface">59.20 <span class="text-[10px] text-error font-normal">↑ 0.5%</span></p>
+</div>
+<div class="w-16 h-2 bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary w-[60%]"></div>
+</div>
+</div>
+<!-- Gauge 2 -->
+<div class="flex items-center justify-between">
+<div class="space-y-1">
+<p class="text-xs font-medium text-outline">Llegada Turistas</p>
+<p class="text-body-md font-bold text-on-surface">840k <span class="text-[10px] text-secondary font-normal">↑ 12%</span></p>
+</div>
+<svg class="w-16 h-6" viewbox="0 0 100 30">
+<path d="M0,25 Q10,15 20,20 T40,10 T60,18 T80,5 T100,12" fill="none" stroke="#006781" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Gauge 3 -->
+<div class="flex items-center justify-between">
+<div class="space-y-1">
+<p class="text-xs font-medium text-outline">Ocupación Hotelera</p>
+<p class="text-body-md font-bold text-on-surface">82% <span class="text-[10px] text-outline font-normal">= Est.</span></p>
+</div>
+<div class="w-16 h-2 bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-secondary w-[82%]"></div>
+</div>
+</div>
+<!-- Gauge 4 -->
+<div class="flex items-center justify-between">
+<div class="space-y-1">
+<p class="text-xs font-medium text-outline">Precio Gasoil (Galón)</p>
+<p class="text-body-md font-bold text-on-surface">DOP 221 <span class="text-[10px] text-secondary font-normal">↓ 1.2%</span></p>
+</div>
+<svg class="w-16 h-6" viewbox="0 0 100 30">
+<path d="M0,10 Q20,15 40,12 T60,25 T80,18 T100,28" fill="none" stroke="#ba1a1a" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Hover effect for the radar grid to simulate interactivity
+        const radar = document.querySelector('.radar-grid');
+        radar.addEventListener('mousemove', (e) => {
+            const rect = radar.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            radar.style.backgroundPosition = `${x/10}px ${y/10}px`;
+        });
+    </script>
+</body></html>

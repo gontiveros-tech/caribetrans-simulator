@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flota | CaribeTrans Fleet Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-on-surface": "#f1f0f3",
+                "primary-fixed-dim": "#abc9f2",
+                "on-secondary": "#ffffff",
+                "inverse-surface": "#2f3033",
+                "on-tertiary-fixed-variant": "#5c4300",
+                "surface-container": "#eeedf1",
+                "surface-variant": "#e3e2e5",
+                "tertiary-fixed": "#ffdfa0",
+                "on-secondary-container": "#00647d",
+                "primary": "#002444",
+                "on-primary-fixed-variant": "#2a486b",
+                "background": "#faf9fc",
+                "primary-container": "#1a3a5c",
+                "surface-bright": "#faf9fc",
+                "on-secondary-fixed-variant": "#004d62",
+                "on-primary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "tertiary": "#2f2100",
+                "surface-container-low": "#f4f3f6",
+                "tertiary-fixed-dim": "#f6be39",
+                "primary-fixed": "#d2e4ff",
+                "on-primary-fixed": "#001c37",
+                "on-primary-container": "#87a4cc",
+                "on-surface-variant": "#43474e",
+                "tertiary-container": "#4a3500",
+                "secondary-fixed": "#b9eaff",
+                "on-tertiary-container": "#cd9a0c",
+                "on-background": "#1a1c1e",
+                "on-error": "#ffffff",
+                "surface": "#faf9fc",
+                "surface-dim": "#dad9dd",
+                "surface-container-highest": "#e3e2e5",
+                "secondary": "#006781",
+                "on-secondary-fixed": "#001f29",
+                "secondary-fixed-dim": "#81d1f0",
+                "on-tertiary-fixed": "#261a00",
+                "on-tertiary": "#ffffff",
+                "outline": "#73777f",
+                "error-container": "#ffdad6",
+                "surface-container-high": "#e9e8eb",
+                "surface-tint": "#436084",
+                "secondary-container": "#8fdfff",
+                "outline-variant": "#c3c6cf",
+                "inverse-primary": "#abc9f2",
+                "on-surface": "#1a1c1e",
+                "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "2xl": "48px",
+                "base": "4px",
+                "margin": "32px",
+                "gutter": "24px",
+                "sm": "12px",
+                "lg": "24px",
+                "xl": "32px",
+                "xs": "8px",
+                "md": "16px"
+            },
+            "fontFamily": {
+                "body-sm": ["Inter"],
+                "headline-sm": ["Poppins"],
+                "button": ["Inter"],
+                "display-lg": ["Poppins"],
+                "body-md": ["Inter"],
+                "label-caps": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-md": ["Poppins"],
+                "headline-lg": ["Poppins"]
+            },
+            "fontSize": {
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .kpi-gradient {
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom, #002444, #006781) 1;
+        }
+        .status-badge {
+            @apply rounded-full px-3 py-1 font-label-caps text-label-caps uppercase tracking-wider;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .doc-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<main class="max-w-[1440px] mx-auto px-margin py-xl">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Flota</h1>
+<p class="font-body-md text-on-surface-variant">Gestión estratégica de unidades de transporte</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-secondary text-on-primary font-button text-button px-lg py-md rounded-lg shadow-md hover:opacity-90 transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Agregar Vehículo
+            </button>
+</header>
+<!-- KPI Row -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg mb-2xl">
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">Total Vehículos</span>
+<span class="material-symbols-outlined text-primary">directions_bus</span>
+</div>
+<div class="mt-md font-headline-md text-headline-md text-primary">48</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">Disponibles</span>
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+</div>
+<div class="mt-md font-headline-md text-headline-md text-primary">31</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">En Servicio</span>
+<span class="material-symbols-outlined text-on-secondary-container">route</span>
+</div>
+<div class="mt-md font-headline-md text-headline-md text-primary">12</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-outline-variant/30 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">En Mantenimiento</span>
+<span class="material-symbols-outlined text-error">build</span>
+</div>
+<div class="mt-md font-headline-md text-headline-md text-primary">5</div>
+</div>
+</section>
+<!-- Filters Section -->
+<section class="bg-surface-container-low p-md rounded-xl flex flex-wrap gap-md items-center mb-xl">
+<div class="flex flex-col gap-xs flex-1 min-w-[200px]">
+<label class="font-body-sm text-primary ml-xs">Tipo de Vehículo</label>
+<div class="flex flex-wrap gap-xs">
+<button class="bg-primary text-on-primary px-md py-xs rounded-full font-body-sm">Todos</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">Minivan</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">Autobús</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">SUV</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">Sedán</button>
+</div>
+</div>
+<div class="flex flex-col gap-xs flex-1 min-w-[200px]">
+<label class="font-body-sm text-primary ml-xs">Estado</label>
+<div class="flex flex-wrap gap-xs">
+<button class="bg-primary text-on-primary px-md py-xs rounded-full font-body-sm">Todos</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">Disponible</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">En servicio</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-md py-xs rounded-full font-body-sm hover:bg-surface-variant/20">Mantenimiento</button>
+</div>
+</div>
+</section>
+<!-- Vehicle Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Card 1 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">airport_shuttle</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A287451</div>
+<div class="font-body-sm text-on-surface-variant">Toyota HiAce 2023</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">15 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">42,300 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary" title="Seguro: Vigente"></div>
+<div class="doc-dot bg-secondary" title="Marbete: Vigente"></div>
+<div class="doc-dot bg-secondary" title="Inspección: Vigente"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-secondary/10 text-secondary status-badge">Disponible</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>7,700 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 82%"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">directions_bus</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A193822</div>
+<div class="font-body-sm text-on-surface-variant">Hyundai County 2022</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">29 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">87,600 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary" title="Seguro: Vigente"></div>
+<div class="doc-dot bg-tertiary-fixed-dim" title="Marbete: Próx. Vencimiento"></div>
+<div class="doc-dot bg-secondary" title="Inspección: Vigente"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-on-secondary-container/10 text-on-secondary-container status-badge">En Servicio</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>2,400 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-on-secondary-container h-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">qr_code_2</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A341097</div>
+<div class="font-body-sm text-on-surface-variant">Toyota Land Cruiser 2024</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">7 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">18,200 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-secondary/10 text-secondary status-badge">Disponible</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>6,800 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 90%"></div>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">directions_bus</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A156733</div>
+<div class="font-body-sm text-on-surface-variant">Hyundai H350 2021</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">35 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">124,800 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-error" title="Vencido"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-error/10 text-error status-badge">Mantenimiento</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>OVERDUE</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-error h-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">directions_car</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A278904</div>
+<div class="font-body-sm text-on-surface-variant">Toyota Corolla 2023</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">4 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">31,500 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-secondary/10 text-secondary status-badge">Disponible</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>3,500 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">airport_shuttle</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A412388</div>
+<div class="font-body-sm text-on-surface-variant">Mercedes Sprinter 2022</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">19 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">68,900 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-tertiary-fixed-dim" title="Seguro: Próx. Venc"></div>
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-on-secondary-container/10 text-on-secondary-container status-badge">En Servicio</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>1,100 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-on-secondary-container h-full" style="width: 89%"></div>
+</div>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">directions_bus</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A309156</div>
+<div class="font-body-sm text-on-surface-variant">Mitsubishi Rosa 2023</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">28 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">55,400 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-secondary/10 text-secondary status-badge">Disponible</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>4,600 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 72%"></div>
+</div>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">airport_shuttle</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A225671</div>
+<div class="font-body-sm text-on-surface-variant">Kia Carnival 2024</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">11 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">12,100 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<div class="doc-dot bg-secondary"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-secondary/10 text-secondary status-badge">Disponible</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>7,900 km</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+<!-- Card 9 -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 p-lg hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined text-[32px]">airport_shuttle</span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm text-primary tracking-wide">A387245</div>
+<div class="font-body-sm text-on-surface-variant">Hyundai H100 2020</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md py-md border-y border-outline-variant/10">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">CAPACIDAD</span>
+<span class="font-body-md text-primary">12 pax</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">ODÓMETRO</span>
+<span class="font-body-md text-primary">156,200 km</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-lg">
+<div class="flex gap-xs items-center">
+<div class="doc-dot bg-error" title="Seguro: Vencido"></div>
+<div class="doc-dot bg-error" title="Marbete: Vencido"></div>
+<div class="doc-dot bg-error" title="Inspección: Vencido"></div>
+<span class="text-[10px] font-label-caps text-outline ml-xs">S / M / I</span>
+</div>
+<span class="bg-error/10 text-error status-badge">Mantenimiento</span>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-label-caps font-label-caps text-outline">
+<span>PRÓXIMO MANT.</span>
+<span>INSPECCIÓN REQ.</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-error h-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.97)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+
+        // Hover effect for vehicle icons
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.transform = 'translateY(-2px)';
+                    icon.style.transition = 'transform 0.3s ease';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body></html>

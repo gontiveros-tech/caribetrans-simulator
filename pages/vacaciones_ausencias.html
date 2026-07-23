@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vacaciones y Ausencias - CaribeTrans</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#eeedf1",
+                      "surface-variant": "#e3e2e5",
+                      "surface-tint": "#436084",
+                      "on-tertiary-fixed-variant": "#5c4300",
+                      "on-background": "#1a1c1e",
+                      "surface-container-high": "#e9e8eb",
+                      "inverse-on-surface": "#f1f0f3",
+                      "on-primary": "#ffffff",
+                      "primary": "#002444",
+                      "secondary-container": "#8fdfff",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#73777f",
+                      "on-tertiary-fixed": "#261a00",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2f3033",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#abc9f2",
+                      "on-surface": "#1a1c1e",
+                      "secondary": "#006781",
+                      "background": "#f0f4f8", /* Adjusted to user specific request while keeping theme logic */
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#4a3500",
+                      "tertiary-fixed": "#ffdfa0",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#b9eaff",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed": "#001f29",
+                      "surface-container-low": "#f4f3f6",
+                      "on-primary-fixed": "#001c37",
+                      "on-tertiary-container": "#cd9a0c",
+                      "on-primary-container": "#87a4cc",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dad9dd",
+                      "on-secondary-fixed-variant": "#004d62",
+                      "secondary-fixed-dim": "#81d1f0",
+                      "tertiary-fixed-dim": "#f6be39",
+                      "surface-bright": "#faf9fc",
+                      "outline-variant": "#c3c6cf",
+                      "on-primary-fixed-variant": "#2a486b",
+                      "surface-container-highest": "#e3e2e5",
+                      "surface": "#ffffff", /* White cards as requested */
+                      "primary-fixed": "#d2e4ff",
+                      "primary-container": "#1a3a5c",
+                      "inverse-primary": "#abc9f2",
+                      "on-surface-variant": "#43474e",
+                      "tertiary": "#2f2100",
+                      "on-secondary-container": "#00647d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "8px",
+                      "xl": "12px",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "2xl": "48px",
+                      "margin": "32px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "md": "16px",
+                      "xs": "8px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Poppins"],
+                      "headline-md": ["Poppins"],
+                      "headline-sm": ["Poppins"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "button": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                      "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .gradient-navy-teal {
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom, #1a3a5c, #006781) 1;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #1a3a5c 0%, #254d75 100%);
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen">
+<main class="max-w-[1440px] mx-auto px-margin py-xl space-y-lg">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-lg mb-xl">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Vacaciones y Ausencias</h1>
+<p class="text-on-surface-variant font-body-sm">Gestión centralizada de licencias y disponibilidad del personal.</p>
+</div>
+<div class="flex items-center gap-md">
+<button class="btn-gradient text-on-primary px-lg py-sm rounded-lg font-button flex items-center gap-xs shadow-md transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Nueva Solicitud
+                </button>
+</div>
+</header>
+<!-- Filters -->
+<section class="flex flex-wrap gap-md items-center bg-surface p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline">filter_list</span>
+<span class="font-body-sm font-semibold text-primary">Filtros:</span>
+</div>
+<select class="bg-surface-container-low border-outline-variant rounded-lg text-body-sm py-xs pl-xs pr-lg focus:ring-secondary">
+<option>Todos los Departamentos</option>
+<option>Operaciones</option>
+<option>Administración</option>
+<option>Mantenimiento</option>
+<option>Conductores</option>
+</select>
+<select class="bg-surface-container-low border-outline-variant rounded-lg text-body-sm py-xs pl-xs pr-lg focus:ring-secondary">
+<option>Todos los Tipos</option>
+<option>Vacaciones</option>
+<option>Licencia Médica</option>
+<option>Permiso Personal</option>
+<option>Ausencia Injustificada</option>
+</select>
+</section>
+<!-- KPI Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface p-lg rounded-xl shadow-sm border border-outline-variant gradient-navy-teal flex items-center justify-between">
+<div>
+<p class="text-label-caps font-label-caps text-outline-variant mb-base">EN VACACIONES HOY</p>
+<h3 class="font-headline-md text-headline-md text-primary">4</h3>
+</div>
+<div class="bg-secondary-container/20 p-sm rounded-full">
+<span class="material-symbols-outlined text-secondary">beach_access</span>
+</div>
+</div>
+<div class="bg-surface p-lg rounded-xl shadow-sm border border-outline-variant gradient-navy-teal flex items-center justify-between">
+<div>
+<p class="text-label-caps font-label-caps text-outline-variant mb-base">SOLICITUDES PENDIENTES</p>
+<h3 class="font-headline-md text-headline-md text-on-tertiary-container">6</h3>
+</div>
+<div class="bg-tertiary-fixed/30 p-sm rounded-full text-on-tertiary-container">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+</div>
+<div class="bg-surface p-lg rounded-xl shadow-sm border border-outline-variant gradient-navy-teal flex items-center justify-between">
+<div>
+<p class="text-label-caps font-label-caps text-outline-variant mb-base">AUSENCIAS ESTE MES</p>
+<h3 class="font-headline-md text-headline-md text-primary">12</h3>
+</div>
+<div class="bg-primary-fixed/20 p-sm rounded-full">
+<span class="material-symbols-outlined text-primary">event_busy</span>
+</div>
+</div>
+<div class="bg-surface p-lg rounded-xl shadow-sm border border-outline-variant gradient-navy-teal flex items-center justify-between">
+<div>
+<p class="text-label-caps font-label-caps text-outline-variant mb-base">DÍAS DISPONIBLES (PROM)</p>
+<h3 class="font-headline-md text-headline-md text-primary">8.3 <span class="text-body-sm font-normal text-outline">de 14</span></h3>
+</div>
+<div class="bg-secondary-fixed/30 p-sm rounded-full">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant">account_balance_wallet</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg">
+<!-- Calendar Card -->
+<div class="xl:col-span-8 bg-surface rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined">calendar_today</span>
+                        Julio 2026
+                    </h2>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs text-body-sm">
+<span class="w-3 h-3 rounded-full bg-secondary"></span> Vacaciones
+                        </div>
+<div class="flex items-center gap-xs text-body-sm">
+<span class="w-3 h-3 rounded-full bg-error"></span> Licencia Médica
+                        </div>
+<div class="flex items-center gap-xs text-body-sm">
+<span class="w-3 h-3 rounded-full bg-on-tertiary-container"></span> Permiso
+                        </div>
+</div>
+</div>
+<div class="p-lg flex-grow overflow-x-auto scroll-hide">
+<div class="min-w-[800px]">
+<div class="calendar-grid border-b border-outline-variant pb-xs text-outline font-label-caps text-label-caps text-center">
+<div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div><div>DOM</div>
+</div>
+<div class="calendar-grid pt-sm gap-y-8 relative">
+<!-- Helper for Grid (Empty days at start of July 2026 - July 1st is Wednesday) -->
+<div class="h-24 p-xs"></div> <!-- Mon 29 June -->
+<div class="h-24 p-xs"></div> <!-- Tue 30 June -->
+<!-- July Days 1-31 -->
+<!-- This is a simplified visual representation. In real production this would be a loop -->
+<script>
+                                const calendarDays = Array.from({length: 31}, (_, i) => i + 1);
+                                calendarDays.forEach(day => {
+                                    document.write(`<div class="h-24 p-xs border-r border-b border-outline-variant/30 text-body-sm text-on-surface-variant flex flex-col justify-start">
+                                        <span>${day}</span>
+                                    </div>`);
+                                });
+                            </script>
+<!-- Plot Bars (Absolute positioning relative to grid) -->
+<!-- Wellington: 14-25 jul -->
+<div class="absolute top-[216px] left-[71px] w-[1140px] z-10">
+<div class="bg-secondary/90 text-on-primary text-[11px] font-semibold px-xs py-1 rounded-full whitespace-nowrap shadow-sm translate-x-[7.5%] w-[35%] overflow-hidden">
+                                    Wellington José Báez: Vacaciones
+                                </div>
+</div>
+<!-- Carlos Santana: 16 jul -->
+<div class="absolute top-[248px] left-[456px] w-[114px] z-20">
+<div class="bg-error/90 text-on-primary text-[11px] font-semibold px-xs py-1 rounded-full whitespace-nowrap shadow-sm text-center">
+                                    C. Santana
+                                </div>
+</div>
+<!-- Miguelina Santos: 21-22 jul -->
+<div class="absolute top-[312px] left-[114px] w-[228px] z-10">
+<div class="bg-on-tertiary-container/90 text-on-primary text-[11px] font-semibold px-xs py-1 rounded-full whitespace-nowrap shadow-sm text-center">
+                                    Miguelina: Permiso personal
+                                </div>
+</div>
+<!-- Pedro Luis Martínez: 28 jul - 8 ago (Visual start only) -->
+<div class="absolute top-[408px] left-[114px] w-[600px] z-10">
+<div class="bg-secondary/90 text-on-primary text-[11px] font-semibold px-xs py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    Pedro Luis Martínez: Vacaciones aprobadas
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Column -->
+<div class="xl:col-span-4 space-y-lg">
+<!-- Coverage Alert Card -->
+<div class="bg-surface p-lg rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary">warning</span>
+                        Alertas de Cobertura
+                    </h3>
+<div class="space-y-md">
+<div class="p-md rounded-lg bg-tertiary-fixed/10 border-l-4 border-on-tertiary-fixed-variant">
+<p class="text-body-sm text-primary font-semibold">Baja disponibilidad de conductores</p>
+<p class="text-body-sm text-on-surface-variant">3 conductores en vacaciones del 28 jul al 1 ago.</p>
+</div>
+<div class="p-md rounded-lg bg-secondary-fixed/10 border-l-4 border-secondary">
+<p class="text-body-sm text-primary font-semibold">Revisión necesaria</p>
+<p class="text-body-sm text-on-surface-variant">4 solicitudes pendientes para inicios de agosto.</p>
+</div>
+</div>
+</div>
+<!-- Vacation Balances Card -->
+<div class="bg-surface rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm text-primary">Saldos de Vacaciones</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-label-caps font-label-caps text-outline">
+<th class="px-md py-sm">EMPLEADO</th>
+<th class="px-md py-sm">DÍAS</th>
+<th class="px-md py-sm text-right">SALDO</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="px-md py-sm">
+<p class="text-body-sm font-semibold">Ramón A. Peña</p>
+<p class="text-[10px] text-outline">15/03/2019</p>
+</td>
+<td class="px-md py-sm text-body-sm">14/6</td>
+<td class="px-md py-sm text-right font-bold text-primary">8</td>
+</tr>
+<tr>
+<td class="px-md py-sm font-semibold text-body-sm">Yolanda M. Castillo</td>
+<td class="px-md py-sm text-body-sm">14/10</td>
+<td class="px-md py-sm text-right font-bold text-primary">4</td>
+</tr>
+<tr>
+<td class="px-md py-sm font-semibold text-body-sm">Carlos A. Santana</td>
+<td class="px-md py-sm text-body-sm">14/3</td>
+<td class="px-md py-sm text-right font-bold text-primary">11</td>
+</tr>
+<tr>
+<td class="px-md py-sm font-semibold text-body-sm">Diógenes R. Mejía</td>
+<td class="px-md py-sm text-body-sm">14/14</td>
+<td class="px-md py-sm text-right">
+<span class="px-xs py-[2px] bg-error-container text-on-error-container rounded-full text-[10px] font-bold">AGOTADAS</span>
+</td>
+</tr>
+<tr>
+<td class="px-md py-sm font-semibold text-body-sm">Franchesca Rosario</td>
+<td class="px-md py-sm text-body-sm">14/0</td>
+<td class="px-md py-sm text-right">
+<span class="px-xs py-[2px] bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase">Completas</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Requests Table -->
+<section class="bg-surface rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-primary">Solicitudes Recientes</h2>
+<button class="text-secondary font-button text-body-sm hover:underline">Ver todas</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-label-caps font-label-caps text-outline">
+<tr>
+<th class="px-lg py-md">EMPLEADO</th>
+<th class="px-lg py-md">TIPO</th>
+<th class="px-lg py-md">DESDE</th>
+<th class="px-lg py-md">HASTA</th>
+<th class="px-lg py-md">DÍAS</th>
+<th class="px-lg py-md">ESTADO</th>
+<th class="px-lg py-md text-right">ACCIONES</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Wellington José Báez</td>
+<td class="px-lg py-md text-body-sm">Vacaciones</td>
+<td class="px-lg py-md text-body-sm">14/07/2026</td>
+<td class="px-lg py-md text-body-sm">25/07/2026</td>
+<td class="px-lg py-md text-body-sm">10</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-secondary-container text-on-secondary-container rounded-full text-[11px] font-bold">APROBADA</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Pedro Luis Martínez</td>
+<td class="px-lg py-md text-body-sm">Vacaciones</td>
+<td class="px-lg py-md text-body-sm">28/07/2026</td>
+<td class="px-lg py-md text-body-sm">08/08/2026</td>
+<td class="px-lg py-md text-body-sm">10</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-secondary-container text-on-secondary-container rounded-full text-[11px] font-bold">APROBADA</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Rosa Emilia Guzmán</td>
+<td class="px-lg py-md text-body-sm">Vacaciones</td>
+<td class="px-lg py-md text-body-sm">04/08/2026</td>
+<td class="px-lg py-md text-body-sm">15/08/2026</td>
+<td class="px-lg py-md text-body-sm">10</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[11px] font-bold">PENDIENTE</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Juan Pablo Reyes</td>
+<td class="px-lg py-md text-body-sm">Permiso Personal</td>
+<td class="px-lg py-md text-body-sm">30/07/2026</td>
+<td class="px-lg py-md text-body-sm">30/07/2026</td>
+<td class="px-lg py-md text-body-sm">1</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[11px] font-bold">PENDIENTE</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Miguel Ángel de los Santos</td>
+<td class="px-lg py-md text-body-sm">Vacaciones</td>
+<td class="px-lg py-md text-body-sm">10/07/2026</td>
+<td class="px-lg py-md text-body-sm">12/07/2026</td>
+<td class="px-lg py-md text-body-sm">3</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-secondary-container text-on-secondary-container rounded-full text-[11px] font-bold">APROBADA</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Francisco Javier Peña</td>
+<td class="px-lg py-md text-body-sm">Vacaciones</td>
+<td class="px-lg py-md text-body-sm">11/08/2026</td>
+<td class="px-lg py-md text-body-sm">22/08/2026</td>
+<td class="px-lg py-md text-body-sm">10</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[11px] font-bold">PENDIENTE</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-semibold text-primary">Ana María Ventura</td>
+<td class="px-lg py-md text-body-sm">Licencia Médica</td>
+<td class="px-lg py-md text-body-sm">15/07/2026</td>
+<td class="px-lg py-md text-body-sm">15/07/2026</td>
+<td class="px-lg py-md text-body-sm">1</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 bg-outline-variant/30 text-on-surface-variant rounded-full text-[11px] font-bold">REGISTRADA</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('.active\\:scale-95').forEach(el => {
+            el.addEventListener('mousedown', () => el.style.transform = 'scale(0.95)');
+            el.addEventListener('mouseup', () => el.style.transform = 'scale(1)');
+            el.addEventListener('mouseleave', () => el.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

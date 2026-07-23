@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Ejecutivo BI | CaribeTrans</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "secondary-container": "#8fdfff",
+                        "on-surface": "#1a1c1e",
+                        "tertiary": "#2f2100",
+                        "secondary-fixed-dim": "#81d1f0",
+                        "secondary-fixed": "#b9eaff",
+                        "on-secondary-fixed": "#001f29",
+                        "inverse-on-surface": "#f1f0f3",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f3033",
+                        "on-tertiary-container": "#cd9a0c",
+                        "on-error-container": "#93000a",
+                        "surface": "#faf9fc",
+                        "primary": "#002444",
+                        "on-secondary-container": "#00647d",
+                        "tertiary-fixed": "#ffdfa0",
+                        "surface-container-low": "#f4f3f6",
+                        "surface-container-high": "#e9e8eb",
+                        "tertiary-container": "#4a3500",
+                        "on-surface-variant": "#43474e",
+                        "on-background": "#1a1c1e",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-container-highest": "#e3e2e5",
+                        "background": "#faf9fc",
+                        "on-primary-container": "#87a4cc",
+                        "secondary": "#006781",
+                        "primary-container": "#1a3a5c",
+                        "outline": "#73777f",
+                        "on-primary-fixed": "#001c37",
+                        "surface-dim": "#dad9dd",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#261a00",
+                        "primary-fixed-dim": "#abc9f2",
+                        "outline-variant": "#c3c6cf",
+                        "surface-container": "#eeedf1",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#004d62",
+                        "surface-tint": "#436084",
+                        "on-primary-fixed-variant": "#2a486b",
+                        "tertiary-fixed-dim": "#f6be39",
+                        "surface-bright": "#faf9fc",
+                        "inverse-primary": "#abc9f2",
+                        "surface-variant": "#e3e2e5",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xs": "8px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "margin": "32px",
+                        "2xl": "48px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Poppins"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-sm": ["Poppins"],
+                        "headline-md": ["Poppins"],
+                        "button": ["Inter"],
+                        "headline-lg": ["Poppins"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Poppins"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f0f4f8;
+            color: #1a1c1e;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .kpi-card {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid transparent;
+            border-image: linear-gradient(to bottom, #002444, #006781) 1;
+        }
+        .custom-gradient-primary {
+            background: linear-gradient(135deg, #002444 0%, #1a3a5c 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .chart-bar-glow {
+            filter: drop-shadow(0 2px 4px rgba(0, 36, 68, 0.1));
+        }
+        .countdown-pulse {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.02); }
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen pb-20">
+<!-- Dashboard Content Wrapper -->
+<main class="max-w-[1440px] mx-auto px-margin pt-10">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">BI / Reportes</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Inteligencia de transporte en tiempo real para CaribeTrans</p>
+</div>
+<div class="flex flex-wrap items-center gap-sm">
+<!-- Period Selector -->
+<div class="relative group">
+<button class="flex items-center gap-xs px-md py-sm bg-white border border-outline-variant rounded-lg font-button text-button text-on-surface hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>Q2 2026 / Julio 2026</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+<!-- Primary Action -->
+<button class="custom-gradient-primary text-on-primary font-button text-button px-lg py-sm rounded-lg flex items-center gap-xs shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                    Generar Reporte PDF
+                </button>
+</div>
+</header>
+<!-- KPI Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl">
+<!-- Card 1: Ingresos -->
+<div class="bg-white p-lg rounded-xl kpi-card">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Ingresos Q2</span>
+<span class="bg-teal-50 text-secondary px-sm py-[2px] rounded-full text-[10px] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+                        12.3%
+                    </span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">DOP $24,856,400</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">vs Q1: $22,134,000</p>
+</div>
+<!-- Card 2: Servicios -->
+<div class="bg-white p-lg rounded-xl kpi-card">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Servicios Completados</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim">local_shipping</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">2,847</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">98% efectividad despacho</p>
+</div>
+<!-- Card 3: Ocupación -->
+<div class="bg-white p-lg rounded-xl kpi-card">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Ocupación Promedio</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">78.4%</h3>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-sm">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 78.4%"></div>
+</div>
+</div>
+<!-- Card 4: Puntualidad -->
+<div class="bg-white p-lg rounded-xl kpi-card">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Puntualidad</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim">schedule</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">94.2%</h3>
+<p class="font-body-sm text-body-sm text-secondary font-semibold mt-xs">Excelente desempeño</p>
+</div>
+</section>
+<!-- Main Analytics Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-xl">
+<!-- Ingresos por Touroperador (Horizontal Bar Chart) -->
+<section class="lg:col-span-5 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-primary">Ingresos por Touroperador</h2>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="space-y-sm">
+<!-- Bar Items -->
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="font-semibold">TUI</span>
+<span class="text-on-surface-variant">DOP $7,245,000</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-primary h-full chart-bar-glow" style="width: 100%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span>Apple Vacations</span>
+<span class="text-on-surface-variant">DOP $4,892,000</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-primary/80 h-full" style="width: 67%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span>Sunwing</span>
+<span class="text-on-surface-variant">DOP $3,678,000</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-primary/70 h-full" style="width: 51%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span>Palladium</span>
+<span class="text-on-surface-variant">DOP $3,412,000</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-primary/60 h-full" style="width: 47%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span>FTI</span>
+<span class="text-on-surface-variant">DOP $2,856,000</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-primary/50 h-full" style="width: 39%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span>Blue Diamond</span>
+<span class="text-on-surface-variant">DOP $1,234,000</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-primary/30 h-full" style="width: 17%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span>Otros</span>
+<span class="text-on-surface-variant">DOP $1,539,400</span>
+</div>
+<div class="w-full bg-surface-container-low h-4 rounded-sm overflow-hidden">
+<div class="bg-outline-variant h-full" style="width: 21%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Ocupación Semanal (Line Chart simulation with SVG) -->
+<section class="lg:col-span-7 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-primary">Ocupación Semanal (%)</h2>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-[12px] text-on-surface-variant">Ocupación</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-3 h-0.5 bg-tertiary-fixed-dim"></span>
+<span class="text-[12px] text-on-surface-variant">Meta (80%)</span>
+</div>
+</div>
+</div>
+<div class="flex-grow relative mt-4">
+<!-- Fake Chart using SVG -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 1000 300">
+<!-- Grid Lines -->
+<line stroke="#e2e8f0" stroke-width="1" x1="0" x2="1000" y1="300" y2="300"></line>
+<line stroke="#e2e8f0" stroke-width="1" x1="0" x2="1000" y1="225" y2="225"></line>
+<line stroke="#e2e8f0" stroke-width="1" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="#e2e8f0" stroke-width="1" x1="0" x2="1000" y1="75" y2="75"></line>
+<line stroke="#e2e8f0" stroke-width="1" x1="0" x2="1000" y1="0" y2="0"></line>
+<!-- Meta Line (80%) -->
+<line stroke="#f6be39" stroke-dasharray="8,4" stroke-width="2" x1="0" x2="1000" y1="60" y2="60"></line>
+<!-- Area Gradient -->
+<defs>
+<lineargradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#006781" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#006781" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- The Area and Line -->
+<path d="M0,250 L83,230 L166,200 L249,180 L332,140 L415,100 L498,24 L581,80 L664,120 L747,150 L830,130 L913,110 L1000,90 V300 H0 Z" fill="url(#areaGradient)"></path>
+<path d="M0,250 L83,230 L166,200 L249,180 L332,140 L415,100 L498,24 L581,80 L664,120 L747,150 L830,130 L913,110 L1000,90" fill="none" stroke="#006781" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Interactive Tooltip (Week 7 - Semana Santa) -->
+<circle cx="498" cy="24" fill="#006781" r="6" stroke="white" stroke-width="2"></circle>
+<rect fill="#1a1c1e" height="40" rx="4" width="100" x="448" y="-40"></rect>
+<text fill="white" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle" x="498" y="-15">92% - S. Santa</text>
+</svg>
+<!-- Axis Labels -->
+<div class="flex justify-between mt-4 font-body-sm text-[11px] text-on-surface-variant">
+<span>S1</span><span>S2</span><span>S3</span><span>S4</span><span>S5</span><span>S6</span><span>S7</span><span>S8</span><span>S9</span><span>S10</span><span>S11</span><span>S12</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Secondary analytics row -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Top 5 Rutas Table -->
+<section class="lg:col-span-8 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-lg">Top 5 Rutas por Ingresos</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 text-on-surface-variant">
+<th class="pb-md font-label-caps text-label-caps uppercase">Ruta</th>
+<th class="pb-md font-label-caps text-label-caps uppercase text-right">Ingresos</th>
+<th class="pb-md font-label-caps text-label-caps uppercase text-right">Servicios</th>
+<th class="pb-md font-label-caps text-label-caps uppercase text-right">Ocupación</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md pr-md">
+<div class="font-body-md font-semibold text-primary">PUJ → Barceló Bávaro</div>
+<div class="text-[12px] text-on-surface-variant">Transfer Compartido</div>
+</td>
+<td class="py-md text-right font-body-md">DOP $3,245,000</td>
+<td class="py-md text-right text-on-surface-variant">412</td>
+<td class="py-md text-right">
+<span class="inline-block px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant text-[12px] font-bold">82%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md pr-md">
+<div class="font-body-md font-semibold text-primary">PUJ → Hard Rock Punta Cana</div>
+<div class="text-[12px] text-on-surface-variant">Premium Services</div>
+</td>
+<td class="py-md text-right font-body-md">DOP $2,876,000</td>
+<td class="py-md text-right text-on-surface-variant">356</td>
+<td class="py-md text-right">
+<span class="inline-block px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant text-[12px] font-bold">79%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md pr-md">
+<div class="font-body-md font-semibold text-primary">PUJ → Cap Cana (Zona)</div>
+<div class="text-[12px] text-on-surface-variant">VIP Private</div>
+</td>
+<td class="py-md text-right font-body-md">DOP $2,134,000</td>
+<td class="py-md text-right text-on-surface-variant">278</td>
+<td class="py-md text-right">
+<span class="inline-block px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant text-[12px] font-bold">85%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md pr-md">
+<div class="font-body-md font-semibold text-primary">PUJ → Iberostar Selection</div>
+<div class="text-[12px] text-on-surface-variant">Corporate Groups</div>
+</td>
+<td class="py-md text-right font-body-md">DOP $1,987,000</td>
+<td class="py-md text-right text-on-surface-variant">245</td>
+<td class="py-md text-right">
+<span class="inline-block px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant text-[12px] font-bold">91%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-md pr-md">
+<div class="font-body-md font-semibold text-primary">Excursión Saona Island</div>
+<div class="text-[12px] text-on-surface-variant">Full Day Tour</div>
+</td>
+<td class="py-md text-right font-body-md">DOP $1,654,000</td>
+<td class="py-md text-right text-on-surface-variant">134</td>
+<td class="py-md text-right">
+<span class="inline-block px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant text-[12px] font-bold">94%</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Puntualidad por Tipo de Servicio -->
+<section class="lg:col-span-4 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-lg">Puntualidad por Servicio</h2>
+<div class="space-y-lg">
+<div class="space-y-2">
+<div class="flex justify-between font-body-sm">
+<span>Transfer IN</span>
+<span class="font-bold text-secondary">96.1%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 96.1%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-body-sm">
+<span>Transfer OUT</span>
+<span class="font-bold text-secondary">93.8%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 93.8%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-body-sm">
+<span>Excursiones</span>
+<span class="font-bold text-secondary">91.5%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 91.5%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-body-sm">
+<span>Privados</span>
+<span class="font-bold text-secondary">97.2%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 97.2%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Ad Context Card -->
+<div class="mt-xl p-md rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="text-[12px] text-on-surface-variant italic leading-tight">
+                            "Los servicios privados mantienen la mayor puntuación de eficiencia del Q2."
+                        </p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Mini Card (Countdown) -->
+<div class="fixed bottom-margin right-margin z-50">
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl shadow-lg border border-primary/20 countdown-pulse flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps uppercase opacity-80">Próximo cierre de reporte</p>
+<p class="font-body-md font-bold">31 Jul 2026 — <span id="countdown">04d 12h 05m</span></p>
+</div>
+<button class="ml-sm text-on-primary-container/60 hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple Countdown Logic
+        function updateCountdown() {
+            const target = new Date("2026-07-31T23:59:59").getTime();
+            const now = new Date("2026-07-27T11:54:00").getTime(); // Simulated 'current' time
+            
+            // In a real app we'd use current Date(), but for the mock we show fixed progress
+            document.getElementById('countdown').innerText = "04d 12h 05m";
+        }
+        
+        updateCountdown();
+
+        // Hover animations for KPI cards
+        document.querySelectorAll('.kpi-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

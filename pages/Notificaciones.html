@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notificaciones | CTR Logistics Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .kpi-gradient {
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom, #002444, #006781) 1;
+        }
+        .notification-item {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .notification-item:hover {
+            transform: translateX(4px);
+        }
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Inter', sans-serif;
+        }
+        .active-dot {
+            box-shadow: 0 0 0 4px rgba(0, 36, 68, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#cd9a0c",
+                        "on-secondary-container": "#00647d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1a3a5c",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "on-primary-fixed-variant": "#2a486b",
+                        "tertiary-fixed": "#ffdfa0",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e9e8eb",
+                        "on-secondary-fixed": "#001f29",
+                        "on-primary-fixed": "#001c37",
+                        "background": "#faf9fc",
+                        "surface-dim": "#dad9dd",
+                        "secondary-fixed": "#b9eaff",
+                        "secondary-fixed-dim": "#81d1f0",
+                        "surface-tint": "#436084",
+                        "surface-container": "#eeedf1",
+                        "secondary-container": "#8fdfff",
+                        "tertiary-fixed-dim": "#f6be39",
+                        "on-secondary-fixed-variant": "#004d62",
+                        "error-container": "#ffdad6",
+                        "secondary": "#006781",
+                        "surface": "#faf9fc",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f1f0f3",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#2f2100",
+                        "primary-fixed-dim": "#abc9f2",
+                        "on-surface-variant": "#43474e",
+                        "surface-container-low": "#f4f3f6",
+                        "outline-variant": "#c3c6cf",
+                        "tertiary-container": "#4a3500",
+                        "primary": "#002444",
+                        "on-background": "#1a1c1e",
+                        "on-tertiary-fixed": "#261a00",
+                        "outline": "#73777f",
+                        "inverse-surface": "#2f3033",
+                        "surface-variant": "#e3e2e5",
+                        "on-primary-container": "#87a4cc",
+                        "on-surface": "#1a1c1e",
+                        "inverse-primary": "#abc9f2",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf9fc",
+                        "surface-container-highest": "#e3e2e5",
+                        "brand-coral": "#e07b54"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "margin": "32px",
+                        "base": "4px",
+                        "2xl": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Poppins"],
+                        "headline-md": ["Poppins"],
+                        "headline-lg": ["Poppins"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "button": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "button": ["14px", {"lineHeight": "1", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-md border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-margin h-16 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Logistics Hub</span>
+</div>
+<div class="hidden md:flex flex-1 max-w-md mx-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/20 font-body-sm" placeholder="Buscar servicios o conductores..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-brand-coral rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+<div class="ml-2 w-8 h-8 rounded-full bg-primary-container overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Professional corporate headshot of a Caribbean male logistics dispatcher wearing a white polo shirt with a company logo, smiling confidently. High-end portrait photography style with soft natural office lighting and a blurred control room background featuring logistical monitors. The aesthetic is modern, clean, and trustworthy, fitting a tropical corporate enterprise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR-UvlEcPy5Jkk40F8hOLWpfNusoN6Vc03tdaS9BdeRj8kfgcue6JrX_N0y_zBpDsCcRcLLD6WZZ7B1W4tkb_o46prwLtoUIG18BAbIwtT2ZV2sp1d_Wj-Nubt57IGo09BzN8i0g9TfwhSMs-gGvleHloHVou8WXu3NaVsu4Fsc6ipweetHtE4rznz8Cuehd_h1DLpMpUlEQ9bazabWd04JJ56zDn1yMOFIA3B0LvFjiIPYxrDBP6cLw"/>
+</div>
+</div>
+</nav>
+<!-- Side Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-primary dark:bg-primary-container shadow-xl flex flex-col py-lg z-40 hidden lg:flex">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-on-primary rounded-lg flex items-center justify-center text-primary font-bold text-headline-sm">CT</div>
+<div>
+<h2 class="text-on-primary font-headline-sm text-headline-sm leading-tight">CTR Logistics</h2>
+<p class="text-on-primary/60 text-[11px] font-label-caps tracking-widest">ADMIN PORTAL</p>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-1 px-sm">
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+                Fleet
+            </a>
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">route</span>
+                Dispatch
+            </a>
+<a class="flex items-center gap-md px-md py-3 bg-on-primary-container/20 text-secondary-container font-semibold border-l-4 border-secondary-container rounded-r-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">notifications</span>
+                Notificaciones
+            </a>
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Payroll
+            </a>
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+</div>
+<div class="px-sm mt-auto border-t border-on-primary/10 pt-lg">
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-md px-md py-3 text-on-primary/70 hover:bg-on-primary-container/10 hover:text-on-primary rounded-lg transition-all font-body-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Sign Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 pt-20 pb-12 px-4 md:px-margin max-w-[1440px]">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<nav class="flex items-center text-on-surface-variant font-body-sm gap-xs mb-xs">
+<span>Portal</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-primary font-semibold">Notificaciones</span>
+</nav>
+<div class="flex items-center gap-md">
+<h1 class="font-headline-lg text-headline-lg text-primary">Notificaciones</h1>
+<span class="px-3 py-1 bg-brand-coral/10 text-brand-coral rounded-full text-label-caps border border-brand-coral/20">12 nuevas</span>
+</div>
+</div>
+<button class="flex items-center gap-xs px-lg py-2 border border-primary text-primary font-button rounded-lg hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-[20px]">done_all</span>
+                Marcar todas como leídas
+            </button>
+</header>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+<!-- No Leídas KPI -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 relative overflow-hidden flex flex-col justify-between h-32 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">No Leídas</span>
+<span class="material-symbols-outlined text-brand-coral">mark_as_unread</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary">12</span>
+<span class="text-brand-coral font-bold text-body-sm">+3 hoy</span>
+</div>
+</div>
+<!-- Hoy KPI -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 relative overflow-hidden flex flex-col justify-between h-32 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">Hoy</span>
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary">28</span>
+<span class="text-on-surface-variant font-body-sm">notificaciones</span>
+</div>
+</div>
+<!-- Esta Semana KPI -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 relative overflow-hidden flex flex-col justify-between h-32 kpi-gradient">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant font-body-sm">Esta Semana</span>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary">143</span>
+<span class="text-on-secondary-container font-semibold text-body-sm">-12% vs anterior</span>
+</div>
+</div>
+</section>
+<!-- Filter Bar -->
+<section class="flex flex-col md:flex-row gap-lg items-start md:items-center justify-between mb-lg bg-surface-container-low p-md rounded-xl border border-outline-variant/20">
+<div class="flex flex-wrap gap-xs">
+<button class="px-md py-2 bg-primary text-on-primary rounded-lg font-button shadow-md">Todas</button>
+<button class="px-md py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-button transition-colors">Alerta</button>
+<button class="px-md py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-button transition-colors">Info</button>
+<button class="px-md py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-button transition-colors">Sistema</button>
+<button class="px-md py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-button transition-colors">Recordatorio</button>
+</div>
+<div class="flex gap-xs bg-surface-container-highest p-1 rounded-lg">
+<button class="px-lg py-1.5 bg-surface-container-lowest text-primary font-button rounded shadow-sm">Todas</button>
+<button class="px-lg py-1.5 text-on-surface-variant font-button hover:text-primary">No leídas</button>
+<button class="px-lg py-1.5 text-on-surface-variant font-button hover:text-primary">Leídas</button>
+</div>
+</section>
+<!-- Notification List -->
+<div class="space-y-base bg-surface-container-low/30 rounded-2xl p-base">
+<!-- Group: NO LEÍDAS -->
+<div class="mb-lg">
+<h3 class="px-lg py-md text-label-caps text-on-surface-variant uppercase tracking-widest flex items-center gap-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-coral"></span>
+                    No Leídas
+                </h3>
+<!-- Unread Items -->
+<div class="space-y-base">
+<!-- Item 1 -->
+<div class="notification-item group bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex gap-md cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-coral"></div>
+<div class="flex-shrink-0 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary active-dot inline-block"></span>
+</div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined fill-1">error</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-body-md text-primary">ALERTA — "Vuelo DE 2156 retrasado +45 min"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">hace 12 min</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-sm leading-relaxed">Reasignar conductor Wellington Báez del servicio TUI #2034. 3 pasajeros afectados.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Despacho]</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="notification-item group bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex gap-md cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-coral"></div>
+<div class="flex-shrink-0 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary active-dot inline-block"></span>
+</div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-body-md text-primary">ALERTA — "Seguro vehículo A412388 vence en 5 días"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">hace 45 min</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-sm leading-relaxed">Mercedes Sprinter, póliza Seguros Universal #PC-2024-8834. Renovar antes del 28 julio.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Flota]</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="notification-item group bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex gap-md cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-coral"></div>
+<div class="flex-shrink-0 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary active-dot inline-block"></span>
+</div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">info</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-body-md text-primary">INFO — "Factura B0100000344 creada"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">hace 2 hrs</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-sm leading-relaxed">Palladium Hotel Group, DOP $1,338,356. Pendiente de cobro.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Facturación]</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="notification-item group bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex gap-md cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-coral"></div>
+<div class="flex-shrink-0 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary active-dot inline-block"></span>
+</div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-body-md text-primary">📅 RECORDATORIO — "Formato 607 vence en 3 días"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">hace 3 hrs</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-sm leading-relaxed">Ventas de julio 2026. 89 registros pendientes de validación DGII.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Contabilidad]</span>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="notification-item group bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex gap-md cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-coral"></div>
+<div class="flex-shrink-0 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary active-dot inline-block"></span>
+</div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-surface-variant/50 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">settings_suggest</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-body-md text-primary">⚙️ SISTEMA — "OCR: 3 facturas en cola de revisión"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">hace 4 hrs</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-sm leading-relaxed">Confianza &lt; 85%. Requieren verificación manual.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[OCR]</span>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="notification-item group bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex gap-md cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-coral"></div>
+<div class="flex-shrink-0 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary active-dot inline-block"></span>
+</div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">person_off</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-body-md text-primary">🔴 ALERTA — "Conductor sin documentos vigentes"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">hace 5 hrs</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-sm leading-relaxed">Licencia de Pedro Martínez vence mañana. Suspender asignaciones hasta renovación.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[RRHH]</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Group: LEÍDAS -->
+<div>
+<h3 class="px-lg py-md text-label-caps text-on-surface-variant uppercase tracking-widest">Leídas</h3>
+<div class="space-y-base">
+<!-- Read Item 1 -->
+<div class="notification-item group bg-slate-50 p-lg rounded-xl border border-outline-variant/20 flex gap-md cursor-pointer transition-opacity opacity-80 hover:opacity-100">
+<div class="flex-shrink-0 w-2.5 h-2.5"></div> <!-- No dot -->
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-secondary-container/10 flex items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-semibold text-body-md text-on-surface-variant">🔵 INFO — "Nómina 1ra quincena aprobada"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">ayer</span>
+</div>
+<p class="text-on-surface-variant/80 text-body-sm mb-sm leading-relaxed">127 empleados, neto DOP $1,897,153. Transferencia programada para 25 julio.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high/50 text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Nómina]</span>
+</div>
+</div>
+<!-- Read Item 2 -->
+<div class="notification-item group bg-slate-50 p-lg rounded-xl border border-outline-variant/20 flex gap-md cursor-pointer transition-opacity opacity-80 hover:opacity-100">
+<div class="flex-shrink-0 w-2.5 h-2.5"></div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-surface-variant/30 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">backup</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-semibold text-body-md text-on-surface-variant">⚙️ SISTEMA — "Backup completado exitosamente"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">ayer</span>
+</div>
+<p class="text-on-surface-variant/80 text-body-sm mb-sm leading-relaxed">Base de datos respaldada. Tamaño: 2.3 GB. Próximo: 24 jul 03:00.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high/50 text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Sistema]</span>
+</div>
+</div>
+<!-- Read Item 3 -->
+<div class="notification-item group bg-slate-50 p-lg rounded-xl border border-outline-variant/20 flex gap-md cursor-pointer transition-opacity opacity-80 hover:opacity-100">
+<div class="flex-shrink-0 w-2.5 h-2.5"></div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-secondary-container/10 flex items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined">local_taxi</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-semibold text-body-md text-on-surface-variant">🔵 INFO — "Nuevo servicio asignado"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">ayer</span>
+</div>
+<p class="text-on-surface-variant/80 text-body-sm mb-sm leading-relaxed">TUI transfer IN, vuelo AA 1547, 22 julio, 14:30, 8 pax → Iberostar.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high/50 text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Despacho]</span>
+</div>
+</div>
+<!-- Read Item 4 -->
+<div class="notification-item group bg-slate-50 p-lg rounded-xl border border-outline-variant/20 flex gap-md cursor-pointer transition-opacity opacity-80 hover:opacity-100">
+<div class="flex-shrink-0 w-2.5 h-2.5"></div>
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed/10 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">event_note</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-semibold text-body-md text-on-surface-variant">📅 RECORDATORIO — "Inspección INTRANT programada"</h4>
+<span class="text-on-surface-variant text-body-sm whitespace-nowrap ml-lg">2 días</span>
+</div>
+<p class="text-on-surface-variant/80 text-body-sm mb-sm leading-relaxed">Vehículos A309156 y A225671, cita 25 julio 09:00, Centro de Inspección Higüey.</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high/50 text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">[Flota]</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / Footer -->
+<footer class="mt-lg flex flex-col md:flex-row justify-between items-center gap-md">
+<span class="text-body-sm text-on-surface-variant">Mostrando 10 de 143 notificaciones</span>
+<div class="flex gap-xs">
+<button class="p-2 border border-outline-variant rounded hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 bg-primary text-on-primary rounded font-bold shadow-md">1</button>
+<button class="w-10 h-10 border border-outline-variant rounded hover:bg-surface-container transition-colors text-primary font-semibold">2</button>
+<button class="w-10 h-10 border border-outline-variant rounded hover:bg-surface-container transition-colors text-primary font-semibold">3</button>
+<button class="p-2 border border-outline-variant rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</footer>
+</main>
+<script>
+        // Micro-interaction for notification items
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Toggle active state for simulation
+                const dot = this.querySelector('.active-dot');
+                if (dot) {
+                    dot.classList.remove('bg-primary', 'active-dot');
+                    dot.classList.add('opacity-0');
+                    this.classList.remove('bg-surface-container-lowest');
+                    this.classList.add('bg-slate-50', 'opacity-80');
+                    const sidebar = this.querySelector('.absolute');
+                    if(sidebar) sidebar.style.display = 'none';
+                }
+            });
+        });
+
+        // Hover animation for KPI cards
+        document.querySelectorAll('.kpi-gradient').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.2s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
